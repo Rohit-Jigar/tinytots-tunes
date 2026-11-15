@@ -183,31 +183,8 @@ class CharacterManager:
         return character
 
     def get_character(self, char_id_or_name: str) -> Optional[Character]:
-        """Retrieves character by ID or Name with alias normalization."""
-        if not char_id_or_name:
-            return None
-        norm = char_id_or_name.lower().strip()
-        alias_map = {
-            "pip": "pip_bird",
-            "pip_the_bird": "pip_bird",
-            "pip bird": "pip_bird",
-            "penny": "penny_bunny",
-            "penny_the_bunny": "penny_bunny",
-            "penny bunny": "penny_bunny",
-            "zara": "zara_zebra",
-            "zara_the_zebra": "zara_zebra",
-            "zara zebra": "zara_zebra",
-            "sunny": "sunny",
-            "sunny_sunshine": "sunny",
-            "sunny the sunshine": "sunny",
-            "barnaby": "barnaby_bear",
-            "barnaby_the_bear": "barnaby_bear",
-            "barnaby bear": "barnaby_bear",
-        }
-        lookup_key = alias_map.get(norm, char_id_or_name)
-        row = db.get_character(lookup_key)
-        if not row and lookup_key != char_id_or_name:
-            row = db.get_character(char_id_or_name)
+        """Retrieves character by ID or Name."""
+        row = db.get_character(char_id_or_name)
         if not row:
             return None
         return Character(

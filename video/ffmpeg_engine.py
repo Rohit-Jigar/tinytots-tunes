@@ -1,5 +1,4 @@
 import os
-import re
 import subprocess
 import json
 from pathlib import Path
@@ -79,17 +78,15 @@ class FFmpegEngine:
         # 2. Text Overlay (Sing-Along Subtitles)
         filter_chain = [vf_motion]
         if display_text:
-            safe_text = re.sub(r'\[.*?\]', '', display_text).strip()
-            safe_text = safe_text.replace("'", "’").replace(":", "\\:").replace("%", "\\%").replace("[", "").replace("]", "")
-            if safe_text:
-                # Large, thick, preschool-friendly text with yellow fill, black border, rounded semi-transparent box
-                drawtext_filter = (
-                    f"drawtext=text='{safe_text}':"
-                    f"font=Arial:fontsize=52:fontcolor=0xFFE600:bordercolor=0x000000:borderw=6:"
-                    f"box=1:boxcolor=0x000000@0.55:boxborderw=24:"
-                    f"x=(w-text_w)/2:y=h-th-90"
-                )
-                filter_chain.append(drawtext_filter)
+            safe_text = display_text.replace(":", "\\:").replace("'", "\\'").replace("%", "\\%")
+            # Large, thick, preschool-friendly text with yellow fill, black border, rounded semi-transparent box
+            drawtext_filter = (
+                f"drawtext=text='{safe_text}':"
+                f"font=Arial:fontsize=52:fontcolor=0xFFE600:bordercolor=0x000000:borderw=6:"
+                f"box=1:boxcolor=0x000000@0.55:boxborderw=24:"
+                f"x=(w-text_w)/2:y=h-th-90"
+            )
+            filter_chain.append(drawtext_filter)
 
         vf = ",".join(filter_chain)
 
@@ -206,7 +203,8 @@ class FFmpegEngine:
         concat_args = [
             "-f", "concat", "-safe", "0",
             "-i", str(concat_txt),
-            "-c", "copy",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "fast",
+            "-c:a", "aac", "-b:a", "192k",
             raw_concat_video
         ]
         self._run_ffmpeg(concat_args, error_context="Concatenate scene clips")

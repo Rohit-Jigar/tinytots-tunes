@@ -1,5 +1,4 @@
 import os
-import re
 import math
 import subprocess
 from pathlib import Path
@@ -345,17 +344,15 @@ class LayeredKineticAnimator:
         # 2. Build Subtitle Filter
         vf_filters = []
         if display_text:
-            safe_text = re.sub(r'\[.*?\]', '', display_text).strip()
-            safe_text = safe_text.replace("'", "’").replace(":", "\\:").replace("%", "\\%").replace("[", "").replace("]", "")
-            if safe_text:
-                # Large, glowing preschool karaoke typography with rounded box
-                drawtext_filter = (
-                    f"drawtext=text='{safe_text}':"
-                    f"font=Arial:fontsize=54:fontcolor=0xFFE600:bordercolor=0x000000:borderw=7:"
-                    f"box=1:boxcolor=0x000000@0.6:boxborderw=24:"
-                    f"x=(w-text_w)/2:y=h-th-85"
-                )
-                vf_filters.append(drawtext_filter)
+            safe_text = display_text.replace(":", "\\:").replace("'", "\\'").replace("%", "\\%")
+            # Large, glowing preschool karaoke typography with rounded box
+            drawtext_filter = (
+                f"drawtext=text='{safe_text}':"
+                f"font=Arial:fontsize=54:fontcolor=0xFFE600:bordercolor=0x000000:borderw=7:"
+                f"box=1:boxcolor=0x000000@0.6:boxborderw=24:"
+                f"x=(w-text_w)/2:y=h-th-85"
+            )
+            vf_filters.append(drawtext_filter)
 
         vf = ",".join(vf_filters) if vf_filters else "null"
 
@@ -384,3 +381,4 @@ class LayeredKineticAnimator:
         return output_clip_path
 
 layered_animator = LayeredKineticAnimator()
+

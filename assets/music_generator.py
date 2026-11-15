@@ -238,4 +238,3 @@ class MusicOrchestrator:
         return self.studio_synth.generate_music(prompt, duration_seconds, output_path, tempo=tempo)
 
 music_generator = MusicOrchestrator()
-ProceduralMusicProvider = StudioNurseryMusicEngine
