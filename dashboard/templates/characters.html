@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block header_title %}Character Library & Visual Consistency Studio{% endblock %}
+
+{% block content %}
+<div class="space-y-8 max-w-6xl">
+
+    <!-- Header Description & Add Button -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 font-heading">Original Character Roster</h3>
+            <p class="text-xs text-slate-500">TinyTots Tunes maintains 100% original, trademark-safe character designs with strict visual continuity across all song episodes.</p>
+        </div>
+        <button onclick="document.getElementById('newCharModal').classList.remove('hidden')" class="bg-brand-blue hover:bg-blue-600 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 self-start">
+            <span>➕</span> Add Original Character
+        </button>
+    </div>
+
+    <!-- Character Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for char in characters %}
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-brand-blue/50 transition">
+            <div class="space-y-4">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brand-purple bg-purple-50 px-2 py-0.5 rounded">{{ char.species }}</span>
+                        <h4 class="text-xl font-bold text-slate-800 mt-1 font-heading">{{ char.name }}</h4>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded">{{ char.id }}</span>
+                </div>
+
+                <!-- Color Palette Swatches -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Official Color Palette</label>
+                    <div class="flex flex-wrap gap-2">
+                        {% for col in char.color_palette %}
+                        <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 px-2 py-1 rounded-lg text-xs font-mono text-slate-600">
+                            <span class="w-3.5 h-3.5 rounded-full border border-black/10 inline-block shadow-sm" style="background-color: {{ col.split(' ')[0] }};"></span>
+                            <span class="text-[11px]">{{ col }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Outfit & Continuity -->
+                <div class="text-xs space-y-2 text-slate-600 bg-slate-50/80 p-3.5 rounded-xl border border-slate-100">
+                    <p><strong>Signature Outfit:</strong> {{ char.clothing }}</p>
+                    <p><strong>Distinctive Features:</strong> {{ char.distinctive_features }}</p>
+                    <p><strong>Preschool Personality:</strong> {{ char.personality }}</p>
+                </div>
+
+                <!-- Master Visual Prompt -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Consistency Prompt Tokens</label>
+                    <p class="text-[11px] text-slate-500 bg-slate-100 p-2.5 rounded-lg font-mono leading-relaxed border border-slate-200">
+                        {{ char.visual_prompt }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between mt-4">
+                <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                    <span>🛡️</span> 100% Trademark Free
+                </span>
+                <form action="/api/projects/plan" method="POST">
+                    <input type="hidden" name="character_id" value="{{ char.id }}">
+                    <button type="submit" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg transition">
+                        Star in New Song &rarr;
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Create Character Modal -->
+    <div id="newCharModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-slate-800 font-heading">Register New Original Character</h3>
+                <button onclick="document.getElementById('newCharModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+            </div>
+
+            <form action="/api/characters/create" method="POST" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Character Name</label>
+                    <input type="text" name="name" required placeholder="e.g. Toby the Turtle" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 uppercase mb-1">ID (Slug)</label>
+                        <input type="text" name="char_id" required placeholder="e.g. toby_turtle" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 uppercase mb-1">Species</label>
+                        <input type="text" name="species" required placeholder="e.g. Sea Turtle" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Color Palette (Comma-separated Hex / Names)</label>
+                    <input type="text" name="palette" required placeholder="#06D6A0 (Sea Green), #FFD166 (Shell Yellow)" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Signature Clothing</label>
+                    <input type="text" name="clothing" required placeholder="Tiny orange swimming goggles and a red shell scarf" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Distinctive Physical Features</label>
+                    <input type="text" name="features" required placeholder="Big friendly round green eyes, small smiling beak" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Personality</label>
+                    <input type="text" name="personality" required placeholder="Gentle, patient, loves exploring ocean reefs and counting sea stars" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-1">Master Visual Prompt</label>
+                    <textarea name="visual_prompt" rows="3" required placeholder="cute baby cartoon sea turtle character Toby with friendly big eyes, orange goggles, 3D Pixar preschool style" class="w-full text-sm px-3.5 py-2 rounded-xl border border-slate-300 outline-none"></textarea>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                    <button type="button" onclick="document.getElementById('newCharModal').classList.add('hidden')" class="px-4 py-2 rounded-xl text-slate-600 font-bold hover:bg-slate-100">
+                        Cancel
+                    </button>
+                    <button type="submit" class="bg-brand-blue hover:bg-blue-600 text-white font-bold px-5 py-2 rounded-xl shadow">
+                        Save Character
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

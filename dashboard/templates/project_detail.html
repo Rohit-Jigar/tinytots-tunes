@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block header_title %}Project: {{ project.title }}{% endblock %}
+
+{% block content %}
+<div class="space-y-8 max-w-6xl">
+
+    <!-- Top Status & Action Bar -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs px-2.5 py-0.5 rounded-full font-bold
+                    {% if project.status == 'PUBLISHED' %} bg-emerald-100 text-emerald-800
+                    {% elif project.status == 'PENDING_APPROVAL' %} bg-amber-100 text-amber-800
+                    {% elif project.status == 'APPROVED' %} bg-blue-100 text-blue-800
+                    {% else %} bg-slate-100 text-slate-700 {% endif %}">
+                    STATUS: {{ project.status }}
+                </span>
+                <span class="text-xs text-slate-400 font-mono">{{ project.project_id }}</span>
+                <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-semibold">{{ project.theme }}</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 font-heading">{{ project.title }}</h2>
+            <p class="text-xs text-slate-500">Starring <strong class="text-slate-700">{{ project.character_name }}</strong> • Preschool Animation (COPPA Made for Kids)</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+            {% if project.status == 'PLANNED' or project.status == 'ASSETS_READY' %}
+            <form action="/api/projects/{{ project.project_id }}/produce" method="POST">
+                <button type="submit" class="bg-brand-blue hover:bg-blue-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow transition flex items-center gap-2">
+                    <span>⚙️</span>
+                    <span>Start 1080p Video Production</span>
+                </button>
+            </form>
+            {% elif project.status == 'PENDING_APPROVAL' %}
+            <form action="/api/projects/{{ project.project_id }}/reject" method="POST">
+                <button type="submit" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-4 py-2.5 rounded-xl text-sm transition">
+                    ❌ Reject / Revise
+                </button>
+            </form>
+            <form action="/api/projects/{{ project.project_id }}/approve" method="POST">
+                <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-md transition flex items-center gap-2">
+                    <span>🛡️ Approve & Publish to YouTube</span>
+                </button>
+            </form>
+            {% elif project.status == 'APPROVED' %}
+            <span class="text-xs font-bold text-blue-700 bg-blue-50 px-4 py-2 rounded-xl border border-blue-200">
+                ⏳ Approved! Uploading to YouTube...
+            </span>
+            {% elif project.status == 'PUBLISHED' %}
+            <a href="{{ project.youtube_url }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow transition flex items-center gap-2">
+                <span>▶</span>
+                <span>Watch on YouTube</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Media Players Section (1080p Video & Thumbnail) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- 1080p Video Player (2 cols) -->
+        <div class="lg:col-span-2 bg-slate-900 rounded-2xl overflow-hidden shadow-lg border border-slate-800 flex flex-col justify-between">
+            <div class="p-3 bg-slate-800 text-xs font-bold text-slate-300 flex items-center justify-between">
+                <span>📺 Master 1080p Video Render</span>
+                <span class="text-emerald-400 font-mono">1920x1080 • H.264 / AAC</span>
+            </div>
+            {% if final_video_exists %}
+            <div class="aspect-video w-full bg-black flex items-center justify-center">
+                <video controls class="w-full h-full object-contain" poster="/media/{{ project.project_id }}/thumbnail/thumbnail_1280x720.jpg">
+                    <source src="/media/{{ project.project_id }}/video/final_1080p.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video streaming.
+                </video>
+            </div>
+            {% else %}
+            <div class="aspect-video w-full bg-slate-950 flex flex-col items-center justify-center text-slate-500 p-8 space-y-3">
+                <span class="text-4xl">🎬</span>
+                <p class="text-sm font-semibold text-slate-400">Video not rendered yet</p>
+                <form action="/api/projects/{{ project.project_id }}/produce" method="POST">
+                    <button type="submit" class="bg-brand-blue hover:bg-blue-600 text-white font-bold px-4 py-2 rounded-xl text-xs transition">
+                        Render Video Now
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="p-3 bg-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+                <span>Dynamic Ken Burns Motion • Synchronized Karaoke Subtitles</span>
+                <span>Ducked BGM: -14 dB</span>
+            </div>
+        </div>
+
+        <!-- 1280x720 YouTube Thumbnail Preview (1 col) -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <h4 class="font-bold text-slate-800 text-sm mb-2 font-heading">YouTube Thumbnail (1280x720)</h4>
+                <div class="aspect-video w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200 mb-3 shadow-inner">
+                    <img src="/media/{{ project.project_id }}/thumbnail/thumbnail_1280x720.jpg"
+                         alt="Thumbnail"
+                         class="w-full h-full object-cover"
+                         onerror="this.onerror=null; this.src='/media/{{ project.project_id }}/assets/scene_01.png';">
+                </div>
+                <div class="space-y-1 text-xs text-slate-600">
+                    <p><strong>Badge:</strong> {{ project.metadata.thumbnail_badge_text }}</p>
+                    <p><strong>Placement:</strong> Bottom-Right timestamp safe</p>
+                    <p><strong>Color Tone:</strong> High-CTR preschool palette</p>
+                </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 text-xs text-slate-400 flex justify-between items-center">
+                <span>Output: JPEG 95%</span>
+                <a href="/media/{{ project.project_id }}/thumbnail/thumbnail_1280x720.jpg" target="_blank" class="font-bold text-brand-blue hover:underline">
+                    Download Full 720p &rarr;
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script & Rhyming Lyrics -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-800 font-heading">Song Lyrics & Toddler Action Directions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for sec in project.lyrics.sections %}
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 space-y-2">
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-blue/10 text-brand-blue uppercase">{{ sec.type }}</span>
+                <div class="text-xs text-slate-800 space-y-1 font-medium leading-relaxed">
+                    {% for line in sec.lines %}
+                    <p>{{ line }}</p>
+                    {% endfor %}
+                </div>
+                {% if sec.action_cues %}
+                <div class="pt-2 border-t border-slate-200 text-[11px] text-amber-800 font-semibold">
+                    <span>Actions:</span> {{ sec.action_cues | join(", ") }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Scene-by-Scene Storyboard & Assets -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-800 font-heading">Scene-by-Scene Storyboard & Assets</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600 border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase text-[11px]">
+                        <th class="p-3">Scene</th>
+                        <th class="p-3">Visual Frame</th>
+                        <th class="p-3">Timing</th>
+                        <th class="p-3">Lyrics / Subtitles</th>
+                        <th class="p-3">Action & Camera</th>
+                        <th class="p-3">Audio Snippet</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for sc in project.storyboard %}
+                    <tr class="hover:bg-slate-50/60">
+                        <td class="p-3 font-bold font-mono text-slate-800">#{{ sc.scene_number }}</td>
+                        <td class="p-3">
+                            <div class="w-24 h-14 rounded-lg overflow-hidden bg-slate-200 border border-slate-300 shadow-sm">
+                                <img src="/media/{{ project.project_id }}/assets/{{ sc.image_filename }}"
+                                     alt="Scene Frame"
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </td>
+                        <td class="p-3 font-mono text-slate-700 whitespace-nowrap">
+                            {{ sc.start_time }}s - {{ sc.end_time }}s<br>
+                            <span class="text-slate-400">({{ sc.duration }}s)</span>
+                        </td>
+                        <td class="p-3 max-w-xs">
+                            <p class="font-bold text-slate-800 text-xs">{{ sc.display_text }}</p>
+                            <span class="text-[10px] text-slate-400 font-mono">{{ sc.section_type }}</span>
+                        </td>
+                        <td class="p-3 text-xs">
+                            <p class="text-slate-700 font-medium">{{ sc.action }}</p>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-mono uppercase">
+                                📹 {{ sc.camera_motion }}
+                            </span>
+                            {% if sc.sfx %}
+                            <span class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-mono">
+                                🔔 {{ sc.sfx }}
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="p-3 whitespace-nowrap">
+                            <audio controls class="h-7 w-36">
+                                <source src="/media/{{ project.project_id }}/audio/{{ sc.audio_filename }}" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- YouTube SEO Metadata -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h3 class="text-lg font-bold text-slate-800 font-heading">YouTube SEO & COPPA Compliance Metadata</h3>
+        <div class="space-y-4 text-xs">
+            <div>
+                <label class="block font-bold text-slate-500 uppercase tracking-wider mb-1">Optimized Video Title</label>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 font-bold text-slate-800 text-sm">
+                    {{ project.metadata.title }}
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-500 uppercase tracking-wider mb-1">Targeted YouTube Tags</label>
+                <div class="flex flex-wrap gap-1.5">
+                    {% for tag in project.metadata.tags %}
+                    <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 font-medium">#{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-500 uppercase tracking-wider mb-1">Full Description & Chapter Timestamps</label>
+                <pre class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 whitespace-pre-wrap font-sans text-xs leading-relaxed max-h-60 overflow-y-auto">{{ project.metadata.description }}</pre>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

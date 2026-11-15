@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block header_title %}Song Ideas & Curriculum Studio{% endblock %}
+
+{% block content %}
+<div class="space-y-8 max-w-6xl">
+
+    <!-- Plan New Song Form -->
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-800 font-heading mb-1">Create or Generate a Song</h3>
+        <p class="text-xs text-slate-500 mb-6">Enter a custom topic or leave blank to let the AI curriculum engine pick an original educational theme.</p>
+
+        <form action="/api/projects/plan" method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Song Topic (Optional)</label>
+                <input type="text" name="topic" placeholder="e.g. The Rainbow Color Song" class="w-full text-sm px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-blue outline-none">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Curriculum Category</label>
+                <select name="category" class="w-full text-sm px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                    <option value="">Any Curriculum Category (Random)</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Lead Character</label>
+                <select name="character_id" class="w-full text-sm px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-blue outline-none bg-white">
+                    {% for char in characters %}
+                    <option value="{{ char.id }}">{{ char.name }} ({{ char.species }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="md:col-span-3 flex items-center justify-between pt-4 border-t border-slate-100">
+                <label class="flex items-center space-x-2 text-xs text-slate-600 font-semibold cursor-pointer">
+                    <input type="checkbox" name="auto_produce" value="true" checked class="w-4 h-4 rounded text-brand-blue focus:ring-brand-blue">
+                    <span>Automatically queue for full 1080p video production & assets generation</span>
+                </label>
+
+                <button type="submit" class="bg-gradient-to-r from-brand-500 to-rose-500 hover:from-rose-600 hover:to-brand-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-md transition">
+                    🚀 Plan Song & Generate Storyboard
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Curriculum Idea Cards -->
+    <div class="space-y-4">
+        <h3 class="text-lg font-bold text-slate-800 font-heading">Preschool Curriculum Catalog</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for item in curriculum %}
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-brand-blue/50 transition">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-brand-blue bg-blue-50 px-2 py-0.5 rounded">{{ item.category }}</span>
+                        <span class="text-xs text-slate-400 font-medium">{{ item.target_age }}</span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-base mb-2">{{ item.topic }}</h4>
+                    <p class="text-xs text-slate-600 italic mb-3">"{{ item.hook }}"</p>
+                    <div class="space-y-1 mb-4">
+                        {% for goal in item.educational_goals %}
+                        <div class="text-[11px] text-slate-500 flex items-center space-x-1.5">
+                            <span class="text-emerald-500">✔</span>
+                            <span>{{ goal }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">{{ item.suggested_tempo }}</span>
+                    <form action="/api/projects/plan" method="POST">
+                        <input type="hidden" name="topic" value="{{ item.topic }}">
+                        <input type="hidden" name="category" value="{{ item.category }}">
+                        <input type="hidden" name="auto_produce" value="true">
+                        <button type="submit" class="bg-slate-100 hover:bg-brand-blue hover:text-white text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg transition">
+                            Produce This Song &rarr;
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

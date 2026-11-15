@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}20-Song Preschool Curriculum Catalog - TinyTots Tunes{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div>
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">📚</span>
+                <h1 class="text-2xl font-bold text-slate-800">Official 20-Song Preschool Curriculum</h1>
+            </div>
+            <p class="text-sm text-slate-500 mt-1">100% Original, Copyright-Free Preschool Animation & Music Catalog</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <a href="/pilots" class="bg-gradient-to-r from-brand-yellow to-amber-500 hover:from-amber-400 hover:to-amber-600 text-slate-900 font-bold px-5 py-2.5 rounded-xl shadow-md transition flex items-center space-x-2">
+                <span>🎬</span>
+                <span>Open Pilot Quality Lab</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Curriculum Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for song in catalog %}
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-md transition flex flex-col justify-between">
+            <div>
+                <!-- Top Badges -->
+                <div class="flex items-center justify-between mb-3">
+                    <span class="bg-slate-900 text-brand-yellow font-mono text-xs px-2.5 py-1 rounded-lg font-bold">
+                        #{{ "%02d" % song.number }}
+                    </span>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full 
+                        {% if song.produced %}bg-emerald-100 text-emerald-800 border border-emerald-200{% else %}bg-slate-100 text-slate-600{% endif %}">
+                        {% if song.produced %}✔ PRODUCED (QC: {{ song.qc_score }}/100){% else %}⏳ PLANNED{% endif %}
+                    </span>
+                </div>
+
+                <!-- Title & Category -->
+                <h3 class="text-lg font-bold text-slate-900 leading-snug mb-1">{{ song.title }}</h3>
+                <span class="inline-block text-xs font-medium text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-md mb-3">
+                    {{ song.category }}
+                </span>
+
+                <!-- Character & Tempo -->
+                <div class="space-y-1.5 text-xs text-slate-600 mb-4 bg-slate-50 p-3 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-slate-500">Lead Star:</span>
+                        <span class="font-bold text-slate-800 capitalize">{{ song.lead_character_name }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-slate-500">Tempo / BPM:</span>
+                        <span class="font-mono text-slate-700">{{ song.tempo }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-slate-500">Target Age:</span>
+                        <span>{{ song.target_age }}</span>
+                    </div>
+                </div>
+
+                <!-- Hook Preview -->
+                <div class="text-xs text-slate-600 italic bg-amber-50/60 border border-amber-100/80 p-2.5 rounded-xl mb-4">
+                    "{{ song.hook }}"
+                </div>
+
+                <!-- Educational Objectives -->
+                <div class="mb-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Learning Goals:</span>
+                    <ul class="text-xs text-slate-600 space-y-1">
+                        {% for goal in song.educational_goals %}
+                        <li class="flex items-start space-x-1.5">
+                            <span class="text-emerald-500 font-bold">✓</span>
+                            <span>{{ goal }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                {% if song.produced %}
+                <a href="/output/{{ song.id }}/final_video.mp4" target="_blank"
+                   class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm transition flex items-center justify-center space-x-2">
+                    <span>▶</span>
+                    <span>Play Master Video</span>
+                </a>
+                {% else %}
+                <form action="/api/catalog/produce/{{ song.number }}" method="POST" class="w-full">
+                    <button type="submit"
+                            class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm transition flex items-center justify-center space-x-2">
+                        <span>⚡</span>
+                        <span>Queue Production</span>
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

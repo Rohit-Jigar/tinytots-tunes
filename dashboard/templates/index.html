@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block header_title %}Factory Dashboard{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- KPI Metric Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- Total Projects -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-2xl font-bold">
+                🎬
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Projects</p>
+                <h3 class="text-2xl font-bold text-slate-800">{{ stats.total_projects }}</h3>
+            </div>
+        </div>
+
+        <!-- In Production -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-2xl font-bold">
+                ⚙️
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">In Production</p>
+                <h3 class="text-2xl font-bold text-slate-800">{{ stats.in_production }}</h3>
+            </div>
+        </div>
+
+        <!-- Pending Approval -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-amber-200 bg-amber-50/30 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold">
+                ⏳
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-amber-700 uppercase tracking-wider">Approval Queue</p>
+                <h3 class="text-2xl font-bold text-amber-900">{{ stats.pending_approval }}</h3>
+            </div>
+        </div>
+
+        <!-- Published -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-2xl font-bold">
+                🚀
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">YouTube Live</p>
+                <h3 class="text-2xl font-bold text-slate-800">{{ stats.published }}</h3>
+            </div>
+        </div>
+
+        <!-- Failed -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center text-2xl font-bold">
+                ⚠️
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Failed Jobs</p>
+                <h3 class="text-2xl font-bold text-slate-800">{{ stats.failed_jobs }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Human-in-the-Loop Approval Queue (High Priority Section) -->
+    {% if approval_queue %}
+    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">🛡️</span>
+                <div>
+                    <h3 class="text-lg font-bold text-amber-900">Manual Approval Queue (Required Before YouTube Publish)</h3>
+                    <p class="text-xs text-amber-700">Review rendered 1080p video, lyrics, and thumbnail. Videos are never uploaded without explicit human authorization.</p>
+                </div>
+            </div>
+            <span class="bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full text-xs">
+                {{ approval_queue | length }} Video(s) Awaiting Review
+            </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for item in approval_queue %}
+            <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-brand-blue bg-blue-50 px-2 py-0.5 rounded">{{ item.data.idea.category }}</span>
+                        <span class="text-xs text-slate-400">{{ item.created_at[:10] }}</span>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-base mb-1">{{ item.title }}</h4>
+                    <p class="text-xs text-slate-500 mb-3">Starring: <strong class="text-slate-700">{{ item.data.character_name }}</strong></p>
+                </div>
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <a href="/projects/{{ item.id }}" class="flex-1 text-center bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 rounded-lg transition">
+                        👁️ Preview Video
+                    </a>
+                    <form action="/api/projects/{{ item.id }}/approve" method="POST" class="flex-1">
+                        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold py-2 rounded-lg transition shadow-sm">
+                            ✅ Approve & Publish
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Two-Column Layout: Recent Projects & Active Queue -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Projects Grid (Left 2 Columns) -->
+        <div class="lg:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800 font-heading">Recent Video Projects</h3>
+                <a href="/ideas" class="text-xs font-bold text-brand-blue hover:underline">Plan New +</a>
+            </div>
+
+            {% if recent_projects %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {% for proj in recent_projects %}
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs px-2.5 py-0.5 rounded-full font-bold
+                                {% if proj.status == 'PUBLISHED' %} bg-emerald-100 text-emerald-800
+                                {% elif proj.status == 'PENDING_APPROVAL' %} bg-amber-100 text-amber-800
+                                {% elif proj.status == 'APPROVED' %} bg-blue-100 text-blue-800
+                                {% else %} bg-slate-100 text-slate-700 {% endif %}">
+                                {{ proj.status }}
+                            </span>
+                            <span class="text-xs text-slate-400">{{ proj.id }}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-base mb-1 line-clamp-1">{{ proj.title }}</h4>
+                        <p class="text-xs text-slate-500 mb-3">{{ proj.theme }} • {{ proj.data.character_name }}</p>
+
+                        <!-- Thumbnail Preview or Icon -->
+                        <div class="w-full h-32 bg-slate-100 rounded-xl overflow-hidden relative mb-3 flex items-center justify-center">
+                            <img src="/media/{{ proj.id }}/thumbnail/thumbnail_1280x720.jpg"
+                                 alt="Thumbnail"
+                                 class="w-full h-full object-cover"
+                                 onerror="this.onerror=null; this.src='/media/{{ proj.id }}/assets/scene_01.png'; this.classList.add('opacity-80');">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
+                        <a href="/projects/{{ proj.id }}" class="font-bold text-brand-blue hover:underline">
+                            Inspect Project &rarr;
+                        </a>
+                        {% if proj.youtube_url %}
+                        <a href="{{ proj.youtube_url }}" target="_blank" class="text-red-600 font-bold hover:underline flex items-center gap-1">
+                            <span>▶</span> YouTube
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 text-center space-y-3">
+                <span class="text-4xl">👶🎵</span>
+                <h4 class="font-bold text-slate-700">No Projects Yet</h4>
+                <p class="text-xs text-slate-400">Ready to produce your first original preschool animated video!</p>
+                <a href="/ideas" class="inline-block bg-brand-500 text-white font-bold px-4 py-2 rounded-xl text-xs shadow">
+                    Create First Song
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Automation & Production Queue (Right Column) -->
+        <div class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800 font-heading">Active Queue Jobs</h3>
+                <a href="/queue" class="text-xs font-bold text-slate-400 hover:underline">View All</a>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+                {% if recent_jobs %}
+                    {% for job in recent_jobs[:6] %}
+                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-slate-700 font-mono">{{ job.id }}</span>
+                            <span class="px-2 py-0.5 rounded font-bold
+                                {% if job.status == 'COMPLETED' %} bg-emerald-100 text-emerald-800
+                                {% elif job.status == 'PROCESSING' %} bg-blue-100 text-blue-800 animate-pulse
+                                {% elif job.status == 'FAILED' %} bg-rose-100 text-rose-800
+                                {% elif job.status == 'WAITING_APPROVAL' %} bg-amber-100 text-amber-800
+                                {% else %} bg-slate-200 text-slate-700 {% endif %}">
+                                {{ job.status }}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 truncate">{{ job.current_step }}</p>
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-brand-blue h-full rounded-full transition-all duration-300" style="width: {{ job.progress }}%"></div>
+                        </div>
+                        {% if job.error_message %}
+                        <p class="text-[11px] text-rose-600 truncate">Err: {{ job.error_message }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-xs text-slate-400 text-center py-6">Production queue is currently idle.</p>
+                {% endif %}
+            </div>
+
+            <!-- External Services Summary -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Engine Providers</h4>
+                <div class="text-xs flex justify-between py-1 border-b border-slate-100">
+                    <span class="text-slate-500">Image Engine:</span>
+                    <span class="font-bold text-slate-700">{{ system_status.image_provider }}</span>
+                </div>
+                <div class="text-xs flex justify-between py-1 border-b border-slate-100">
+                    <span class="text-slate-500">Voice Synthesis:</span>
+                    <span class="font-bold text-slate-700">{{ system_status.voice_provider }}</span>
+                </div>
+                <div class="text-xs flex justify-between py-1 border-b border-slate-100">
+                    <span class="text-slate-500">Music Generation:</span>
+                    <span class="font-bold text-slate-700">{{ system_status.music_provider }}</span>
+                </div>
+                <div class="text-xs flex justify-between py-1">
+                    <span class="text-slate-500">Video Compositor:</span>
+                    <span class="font-bold text-emerald-600">FFmpeg 1080p OK</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

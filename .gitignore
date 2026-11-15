@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+
+# Environment Variables & Secrets
+.env
+client_secrets.json
+youtube_token.json
+
+# Temporary Render & Processing Data
+tinytots.log
+temp/
+projects/*/video/frames_*
+*.tmp
+
+# System
+.DS_Store
+Thumbs.db

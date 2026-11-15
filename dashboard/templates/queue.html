@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block header_title %}Production Queue & Automation Status{% endblock %}
+
+{% block content %}
+<div class="space-y-8 max-w-6xl">
+
+    <div class="flex items-center justify-between">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 font-heading">Active Pipeline Queue</h3>
+            <p class="text-xs text-slate-500">Autonomous worker processes jobs asynchronously: planning, generating assets, rendering 1080p MP4, and publishing upon approval.</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+            <span class="text-xs font-bold text-slate-700">Worker Active</span>
+        </div>
+    </div>
+
+    <!-- Jobs Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-600 border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase text-[11px]">
+                        <th class="p-4">Job ID</th>
+                        <th class="p-4">Project ID</th>
+                        <th class="p-4">Status</th>
+                        <th class="p-4">Current Step</th>
+                        <th class="p-4">Progress</th>
+                        <th class="p-4">Attempts</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-medium">
+                    {% for job in jobs %}
+                    <tr class="hover:bg-slate-50/70">
+                        <td class="p-4 font-mono font-bold text-slate-800">{{ job.id }}</td>
+                        <td class="p-4 font-mono">
+                            <a href="/projects/{{ job.project_id }}" class="text-brand-blue hover:underline">
+                                {{ job.project_id }}
+                            </a>
+                        </td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold
+                                {% if job.status == 'COMPLETED' %} bg-emerald-100 text-emerald-800
+                                {% elif job.status == 'PROCESSING' %} bg-blue-100 text-blue-800 animate-pulse
+                                {% elif job.status == 'FAILED' %} bg-rose-100 text-rose-800
+                                {% elif job.status == 'WAITING_APPROVAL' %} bg-amber-100 text-amber-800
+                                {% else %} bg-slate-100 text-slate-700 {% endif %}">
+                                {{ job.status }}
+                            </span>
+                        </td>
+                        <td class="p-4 max-w-xs truncate text-slate-700">
+                            {{ job.current_step }}
+                            {% if job.error_message %}
+                            <p class="text-[11px] text-rose-600 mt-0.5 truncate">{{ job.error_message }}</p>
+                            {% endif %}
+                        </td>
+                        <td class="p-4 w-40">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-brand-blue h-full rounded-full transition-all duration-300" style="width: {{ job.progress }}%"></div>
+                                </div>
+                                <span class="font-mono text-[11px] text-slate-500">{{ job.progress }}%</span>
+                            </div>
+                        </td>
+                        <td class="p-4 font-mono">{{ job.retry_count }}</td>
+                        <td class="p-4 text-right whitespace-nowrap">
+                            {% if job.status == 'FAILED' %}
+                            <form action="/api/jobs/{{ job.id }}/retry" method="POST" class="inline">
+                                <button type="submit" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-rose-200">
+                                    🔄 Retry
+                                </button>
+                            </form>
+                            {% elif job.status == 'WAITING_APPROVAL' %}
+                            <a href="/projects/{{ job.project_id }}" class="bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-3 py-1.5 rounded-lg text-xs transition">
+                                Review &rarr;
+                            </a>
+                            {% else %}
+                            <a href="/projects/{{ job.project_id }}" class="text-slate-400 hover:text-slate-600 text-xs">
+                                Inspect
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

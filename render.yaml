@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: tinytots-tunes-studio
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: standard
+    region: oregon
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: IMAGE_PROVIDER
+        value: mock
+      - key: VOICE_PROVIDER
+        value: sapi
+      - key: MUSIC_PROVIDER
+        value: procedural
+      - key: YOUTUBE_MOCK_MODE
+        value: "true"
+      - key: YOUTUBE_DEFAULT_PRIVACY
+        value: private
+      - key: YOUTUBE_MADE_FOR_KIDS
+        value: "true"
+      - key: VIDEO_WIDTH
+        value: "1920"
+      - key: VIDEO_HEIGHT
+        value: "1080"
+      - key: VIDEO_FPS
+        value: "30"
