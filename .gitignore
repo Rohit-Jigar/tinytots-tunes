@@ -23,3 +23,5 @@ projects/*/video/frames_*
 # System
 .DS_Store
 Thumbs.db
+
+projects/

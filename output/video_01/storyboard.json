@@ -1,0 +1,243 @@
+[
+  {
+    "scene_number": 1,
+    "section_type": "Intro",
+    "start_time": 0.0,
+    "end_time": 6.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "Hello little stompers! It's Barnaby Bear!",
+      "Put on your dinosaur feet and stomp with me!"
+    ],
+    "display_text": "Hello little stompers! It's Barnaby Bear! Put on your dinosaur feet and stomp with me!",
+    "action": "Wave both hands enthusiastically",
+    "camera_motion": "zoom_in",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Intro. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Wave both hands enthusiastically. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_01.png",
+    "audio_filename": "audio_01.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_01.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_01.mp3"
+  },
+  {
+    "scene_number": 2,
+    "section_type": "Intro",
+    "start_time": 6.0,
+    "end_time": 10.0,
+    "duration": 4.0,
+    "lyrics_lines": [
+      "Are you ready to roar? Let's go!"
+    ],
+    "display_text": "Are you ready to roar? Let's go!",
+    "action": "Wave both hands enthusiastically",
+    "camera_motion": "pan_right",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Intro. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Wave both hands enthusiastically. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_02.png",
+    "audio_filename": "audio_02.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_02.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_02.mp3"
+  },
+  {
+    "scene_number": 3,
+    "section_type": "Verse 1",
+    "start_time": 10.0,
+    "end_time": 14.0,
+    "duration": 4.0,
+    "lyrics_lines": [
+      "Big green footprints in the sand,",
+      "Dinosaur dancing across the land!"
+    ],
+    "display_text": "Big green footprints in the sand, Dinosaur dancing across the land!",
+    "action": "Stomp right foot then left foot",
+    "camera_motion": "gentle_bounce",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 1. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Stomp right foot then left foot. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_03.png",
+    "audio_filename": "audio_03.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_03.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_03.mp3"
+  },
+  {
+    "scene_number": 4,
+    "section_type": "Verse 1",
+    "start_time": 14.0,
+    "end_time": 20.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "Stomp your two feet, one and two,",
+      "Here comes a happy dino dance for you!"
+    ],
+    "display_text": "Stomp your two feet, one and two, Here comes a happy dino dance for you!",
+    "action": "Stomp right foot then left foot",
+    "camera_motion": "zoom_out",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 1. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Stomp right foot then left foot. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_04.png",
+    "audio_filename": "audio_04.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_04.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_04.mp3"
+  },
+  {
+    "scene_number": 5,
+    "section_type": "Chorus",
+    "start_time": 20.0,
+    "end_time": 28.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Stomp, stomp, dinosaur, stomp on the floor!",
+      "Give a little wiggle and a happy roar!"
+    ],
+    "display_text": "Stomp, stomp, dinosaur, stomp on the floor! Give a little wiggle and a happy roar!",
+    "action": "Stomp rhythmically",
+    "camera_motion": "pan_left",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Stomp rhythmically. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_05.png",
+    "audio_filename": "audio_05.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_05.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_05.mp3"
+  },
+  {
+    "scene_number": 6,
+    "section_type": "Chorus",
+    "start_time": 28.0,
+    "end_time": 34.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "Swish your big tail, tap your tiny claws,",
+      "Dinosaur dancing gives a loud applause!"
+    ],
+    "display_text": "Swish your big tail, tap your tiny claws, Dinosaur dancing gives a loud applause!",
+    "action": "Wiggle tail",
+    "camera_motion": "zoom_in",
+    "sfx": "clap",
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Wiggle tail. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_06.png",
+    "audio_filename": "audio_06.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_06.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_06.mp3",
+    "sfx_file": "D:\\TinyTots Tunes\\data\\sfx\\clap.wav"
+  },
+  {
+    "scene_number": 7,
+    "section_type": "Verse 2",
+    "start_time": 34.0,
+    "end_time": 40.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "Flap little pterodactyl wings so high,",
+      "Flying past the clouds in the sunny sky!"
+    ],
+    "display_text": "Flap little pterodactyl wings so high, Flying past the clouds in the sunny sky!",
+    "action": "Flap arms like gentle wings",
+    "camera_motion": "pan_right",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 2. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Flap arms like gentle wings. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_07.png",
+    "audio_filename": "audio_07.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_07.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_07.mp3"
+  },
+  {
+    "scene_number": 8,
+    "section_type": "Verse 2",
+    "start_time": 40.0,
+    "end_time": 48.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Spin all around like a dino spinning top,",
+      "Dancing to the beat that will never stop!"
+    ],
+    "display_text": "Spin all around like a dino spinning top, Dancing to the beat that will never stop!",
+    "action": "Flap arms like gentle wings",
+    "camera_motion": "gentle_bounce",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 2. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Flap arms like gentle wings. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_08.png",
+    "audio_filename": "audio_08.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_08.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_08.mp3"
+  },
+  {
+    "scene_number": 9,
+    "section_type": "Chorus",
+    "start_time": 48.0,
+    "end_time": 56.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Stomp, stomp, dinosaur, stomp on the floor!",
+      "Give a little wiggle and a happy roar!"
+    ],
+    "display_text": "Stomp, stomp, dinosaur, stomp on the floor! Give a little wiggle and a happy roar!",
+    "action": "Stomp feet to beat",
+    "camera_motion": "zoom_out",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Stomp feet to beat. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_09.png",
+    "audio_filename": "audio_09.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_09.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_09.mp3"
+  },
+  {
+    "scene_number": 10,
+    "section_type": "Chorus",
+    "start_time": 56.0,
+    "end_time": 62.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "Swish your big tail, tap your tiny claws,",
+      "Dinosaur dancing gives a loud applause!"
+    ],
+    "display_text": "Swish your big tail, tap your tiny claws, Dinosaur dancing gives a loud applause!",
+    "action": "Clap excitedly",
+    "camera_motion": "pan_left",
+    "sfx": "clap",
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Clap excitedly. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_10.png",
+    "audio_filename": "audio_10.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_10.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_10.mp3",
+    "sfx_file": "D:\\TinyTots Tunes\\data\\sfx\\clap.wav"
+  },
+  {
+    "scene_number": 11,
+    "section_type": "Outro",
+    "start_time": 62.0,
+    "end_time": 70.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Whew! That was such a mighty dinosaur stomp!",
+      "Barnaby Bear had so much fun with you!"
+    ],
+    "display_text": "Whew! That was such a mighty dinosaur stomp! Barnaby Bear had so much fun with you!",
+    "action": "Wipe brow and smile warmly",
+    "camera_motion": "zoom_in",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Outro. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Wipe brow and smile warmly. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_11.png",
+    "audio_filename": "audio_11.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_11.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_11.mp3"
+  },
+  {
+    "scene_number": 12,
+    "section_type": "Outro",
+    "start_time": 70.0,
+    "end_time": 74.0,
+    "duration": 4.0,
+    "lyrics_lines": [
+      "See you next time, little dinos! Roar and bye-bye!"
+    ],
+    "display_text": "See you next time, little dinos! Roar and bye-bye!",
+    "action": "Wipe brow and smile warmly",
+    "camera_motion": "pan_right",
+    "sfx": "chime",
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Outro. Focus on character is Barnaby Bear, an original preschool cartoon Brown Teddy Bear, exact signature wardrobe: Bright teal corduroy dungarees with a single large red wooden button on the front bib, color palette: #8B5A2B (Warm Honey Brown), #00A896 (Teal Dungarees), #FFF1D0 (Warm Cream Tummy), #E63946 (Cherry Red Button), features: Round fuzzy ears with cream inner fur, warm circular cream tummy, button nose, sparkling curious brown eyes, warm open smile, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Wipe brow and smile warmly. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_12.png",
+    "audio_filename": "audio_12.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\assets\\scene_12.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_01\\audio\\audio_12.mp3",
+    "sfx_file": "D:\\TinyTots Tunes\\data\\sfx\\chime.wav"
+  }
+]

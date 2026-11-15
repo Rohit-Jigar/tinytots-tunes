@@ -206,8 +206,7 @@ class FFmpegEngine:
         concat_args = [
             "-f", "concat", "-safe", "0",
             "-i", str(concat_txt),
-            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "fast",
-            "-c:a", "aac", "-b:a", "192k",
+            "-c", "copy",
             raw_concat_video
         ]
         self._run_ffmpeg(concat_args, error_context="Concatenate scene clips")
