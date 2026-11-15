@@ -32,7 +32,7 @@ def test_catalog_query_by_id_and_title():
 
     s2 = catalog_manager.get_song_by_number(2)
     assert s2["title"] == "ABC Phonics Adventure"
-    assert s2["lead_character_id"] == "pip_the_bird"
+    assert s2["lead_character_id"] == "pip_bird"
 
     lookup = catalog_manager.get_song_by_title("Dancing Dinosaur")
     assert lookup is not None
