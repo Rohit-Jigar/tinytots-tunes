@@ -164,20 +164,8 @@ class FFmpegEngine:
                 progress = int(20 + (idx / total_scenes) * 50)
                 progress_callback(progress, f"Animating Scene {sc_num}/{total_scenes} (2.5D Kinetic Puppet)")
 
-            try:
-                from video.layered_animator import layered_animator
-                layered_animator.render_animated_scene_clip(
-                    character=char,
-                    setting_type=sc.get("section_type", "preschool meadow"),
-                    action=sc.get("action", "dancing to the rhythm"),
-                    audio_path=sc.get("audio_file", ""),
-                    duration=sc["duration"],
-                    output_clip_path=clip_path,
-                    display_text=sc.get("display_text", ""),
-                    bpm=120
-                )
-            except Exception as ae:
-                logger.warning("Layered kinetic animator fallback: %s", ae)
+            if sc.get("image_file") and os.path.exists(sc["image_file"]):
+                # High-definition 3D Pixar / Cocomelon cinematic camera motion & karaoke overlay
                 self.render_scene_clip(
                     image_path=sc["image_file"],
                     audio_path=sc.get("audio_file"),
@@ -187,6 +175,30 @@ class FFmpegEngine:
                     display_text=sc.get("display_text", ""),
                     template=template
                 )
+            else:
+                try:
+                    from video.layered_animator import layered_animator
+                    layered_animator.render_animated_scene_clip(
+                        character=char,
+                        setting_type=sc.get("section_type", "preschool meadow"),
+                        action=sc.get("action", "dancing to the rhythm"),
+                        audio_path=sc.get("audio_file", ""),
+                        duration=sc["duration"],
+                        output_clip_path=clip_path,
+                        display_text=sc.get("display_text", ""),
+                        bpm=120
+                    )
+                except Exception as ae:
+                    logger.warning("Layered kinetic animator fallback: %s", ae)
+                    self.render_scene_clip(
+                        image_path=sc.get("image_file", ""),
+                        audio_path=sc.get("audio_file"),
+                        duration=sc["duration"],
+                        output_clip_path=clip_path,
+                        motion_type=sc.get("camera_motion", "zoom_in"),
+                        display_text=sc.get("display_text", ""),
+                        template=template
+                    )
             clip_paths.append(clip_path)
 
         project_data["animation_engine"] = "LayeredKineticAnimationEngine (2.5D Character Puppet + Parallax + Particles)"

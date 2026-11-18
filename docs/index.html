@@ -426,10 +426,15 @@
             document.getElementById('pilot-id-badge').textContent = pid.toUpperCase();
             document.getElementById('pilot-title-text').textContent = pid === 'video_01' ? "The Dancing Dinosaur Song" : "ABC Phonics Adventure";
             document.getElementById('pilot-star-text').textContent = pid === 'video_01' ? "Barnaby Bear" : "Pip the Bird";
-            document.getElementById('pilot-duration-text').textContent = pid === 'video_01' ? "69.6s" : "68.4s";
+            document.getElementById('pilot-duration-text').textContent = pid === 'video_01' ? "70.7s" : "70.8s";
             document.getElementById('pilot-lyrics-box').textContent = pid === 'video_01'
                 ? "Hello little stompers! It's Barnaby Bear!\nPut on your dinosaur feet and stomp with me!\nAre you ready to roar? Let's go! [Roar!]\nBig green footprints in the sand,\nDinosaur dancing across the land!\nStomp your two feet, one and two,\nHere comes a happy dino dance for you!"
                 : "Chirp chirp! Hello friends! I'm Pip the Bird!\nCome fly through the alphabet garden with me and Penny!\nA is for Apple, a-a-apple sweet,\nB is for Ball that bounces at our feet!\nC is for Cat saying meow meow meow,\nLook at all the letters that we're learning now!";
+            document.getElementById('pilot-thumbnail-img').src = `./output/${pid}/thumbnail.png`;
+            const player = document.getElementById('master-video-player');
+            const src = document.getElementById('video-source');
+            src.src = `./output/${pid}/final_video.mp4`;
+            player.load();
             renderScorecard(null);
         }
 

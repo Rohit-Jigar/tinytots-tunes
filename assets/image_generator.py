@@ -12,27 +12,59 @@ from assets.base import BaseImageProvider
 class PollinationsImageProvider(BaseImageProvider):
     """
     Generates high-quality AI illustrations using Pollinations.ai (Free, no API key needed).
-    Uses Flux/Stable Diffusion models for children's cartoon style.
+    Uses Sana/SD diffusion models for modern 3D children's cartoon style.
     """
     def generate_image(self, prompt: str, output_path: str, width: int = 1920, height: int = 1080) -> str:
+        import time
+        import re
         safe_prompt = SafetyChecker.sanitize_prompt(prompt)
         encoded_prompt = urllib.parse.quote(safe_prompt)
-        seed = random.randint(1000, 999999)
-        # 16:9 ratio free tier
-        url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo=true"
-        logger.info("Calling Pollinations AI for image: %s...", safe_prompt[:60])
 
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
+        max_retries = 4
+        for attempt in range(max_retries):
+            seed = random.randint(1000, 999999)
+            url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&seed={seed}&nologo=true"
+            logger.info("Calling Pollinations AI for 3D visual (attempt %d/%d): %s...", attempt + 1, max_retries, safe_prompt[:60])
 
-        parent_dir = os.path.dirname(output_path)
-        if parent_dir:
-            os.makedirs(parent_dir, exist_ok=True)
-        with open(output_path, "wb") as f:
-            f.write(response.content)
+            try:
+                response = requests.get(url, timeout=45)
+                if response.status_code == 200 and len(response.content) > 1000:
+                    parent_dir = os.path.dirname(output_path)
+                    if parent_dir:
+                        os.makedirs(parent_dir, exist_ok=True)
+                    with open(output_path, "wb") as f:
+                        f.write(response.content)
 
-        logger.info("Saved generated image to %s", output_path)
-        return output_path
+                    logger.info("Saved 3D Pollinations illustration to %s (%d bytes)", output_path, len(response.content))
+                    return output_path
+
+                if response.status_code == 402:
+                    wait_time = 15
+                    try:
+                        err_data = response.json()
+                        msg = err_data.get("error", {}).get("message", "")
+                        match = re.search(r"Retry after (\d+)s", msg)
+                        if match:
+                            wait_time = int(match.group(1)) + 2
+                    except Exception:
+                        pass
+                    logger.info("Pollinations rate limit reached. Waiting %ds before retry...", wait_time)
+                    time.sleep(wait_time)
+                    continue
+                elif response.status_code in (500, 502, 503, 504):
+                    logger.warning("Pollinations server temporary error %d. Waiting 6s before retry...", response.status_code)
+                    time.sleep(6)
+                    continue
+                else:
+                    response.raise_for_status()
+            except requests.exceptions.RequestException as e:
+                logger.warning("Pollinations request error on attempt %d: %s", attempt + 1, e)
+                if attempt < max_retries - 1:
+                    time.sleep(5)
+                else:
+                    raise
+
+        raise RuntimeError(f"Pollinations AI failed after {max_retries} attempts for: {safe_prompt[:40]}")
 
 class OpenAIImageProvider(BaseImageProvider):
     """Generates images using OpenAI DALL-E 3 API."""
@@ -302,7 +334,8 @@ class ImageOrchestrator:
             return provider.generate_image(prompt, output_path, width=width, height=height)
         except Exception as e:
             logger.warning("Primary image provider '%s' failed: %s. Attempting fallback.", chosen, e)
-            self._offline_providers.add(chosen)
+            if chosen != "pollinations":
+                self._offline_providers.add(chosen)
             if chosen in ("replicate", "openai", "stability"):
                 try:
                     return self.providers["pollinations"].generate_image(prompt, output_path, width=width, height=height)

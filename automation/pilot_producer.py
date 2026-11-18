@@ -1,8 +1,13 @@
 import os
+import sys
+from pathlib import Path
+
+# Ensure root workspace directory is in sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import json
 import shutil
 import time
-from pathlib import Path
 from typing import Dict, Any, Optional
 
 from core.config import config

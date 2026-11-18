@@ -35,17 +35,27 @@ class AssetManager:
         logger.info("Beginning asset generation for project %s (%d scenes)...", p_id, total_scenes)
 
         # 1. Generate Scene Images and Vocals
+        import shutil
+        section_image_map = {}
         for idx, scene in enumerate(storyboard):
             sc_num = scene["scene_number"]
+            sec_type = scene.get("section_type", f"sec_{sc_num}")
             step_pct = int(10 + (idx / total_scenes) * 60)
             if progress_callback:
                 progress_callback(step_pct, f"Generating Scene {sc_num}/{total_scenes} Visuals & Vocals")
 
-            # A. Scene Image
+            # A. Scene Image (Section-level visual consistency)
             img_path = assets_dir / f"scene_{sc_num:02d}.png"
             if not img_path.exists():
-                prompt = scene["visual_prompt"]
-                image_generator.generate(prompt, str(img_path), width=config.VIDEO_WIDTH, height=config.VIDEO_HEIGHT)
+                if sec_type in section_image_map and os.path.exists(section_image_map[sec_type]):
+                    shutil.copyfile(section_image_map[sec_type], str(img_path))
+                    logger.info("Reusing section 3D master plate '%s' for Scene %d (Visual Continuity)", sec_type, sc_num)
+                else:
+                    prompt = scene["visual_prompt"]
+                    image_generator.generate(prompt, str(img_path), width=config.VIDEO_WIDTH, height=config.VIDEO_HEIGHT)
+                    section_image_map[sec_type] = str(img_path)
+            else:
+                section_image_map[sec_type] = str(img_path)
             scene["image_file"] = str(img_path)
 
             # B. Scene Vocals

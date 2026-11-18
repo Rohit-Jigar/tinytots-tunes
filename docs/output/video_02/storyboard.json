@@ -1,0 +1,242 @@
+[
+  {
+    "scene_number": 1,
+    "section_type": "Intro",
+    "start_time": 0.0,
+    "end_time": 8.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Chirp chirp! Hello friends! I'm Pip the Bird!",
+      "Come fly through the alphabet garden with me and Penny!"
+    ],
+    "display_text": "Chirp chirp! Hello friends! I'm Pip the Bird! Come fly through the alphabet garden with me and Penny!",
+    "action": "Flutter tiny yellow wings",
+    "camera_motion": "zoom_in",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Intro. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Flutter tiny yellow wings. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_01.png",
+    "audio_filename": "audio_01.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_01.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_01.mp3"
+  },
+  {
+    "scene_number": 2,
+    "section_type": "Intro",
+    "start_time": 8.0,
+    "end_time": 12.0,
+    "duration": 4.0,
+    "lyrics_lines": [
+      "Let's sing our magical ABC phonics song!"
+    ],
+    "display_text": "Let's sing our magical ABC phonics song!",
+    "action": "Flutter tiny yellow wings",
+    "camera_motion": "pan_right",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Intro. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Flutter tiny yellow wings. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_02.png",
+    "audio_filename": "audio_02.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_02.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_02.mp3"
+  },
+  {
+    "scene_number": 3,
+    "section_type": "Verse 1",
+    "start_time": 12.0,
+    "end_time": 20.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "A is for Apple, a-a-apple sweet,",
+      "B is for Ball that bounces at our feet!"
+    ],
+    "display_text": "A is for Apple, a-a-apple sweet, B is for Ball that bounces at our feet!",
+    "action": "Hold pretend apple",
+    "camera_motion": "gentle_bounce",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 1. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Hold pretend apple. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_03.png",
+    "audio_filename": "audio_03.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_03.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_03.mp3"
+  },
+  {
+    "scene_number": 4,
+    "section_type": "Verse 1",
+    "start_time": 20.0,
+    "end_time": 28.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "C is for Cat saying meow meow meow,",
+      "Look at all the letters that we're learning now!"
+    ],
+    "display_text": "C is for Cat saying meow meow meow, Look at all the letters that we're learning now!",
+    "action": "Pretend whisker scratch",
+    "camera_motion": "zoom_out",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 1. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Pretend whisker scratch. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_04.png",
+    "audio_filename": "audio_04.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_04.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_04.mp3"
+  },
+  {
+    "scene_number": 5,
+    "section_type": "Chorus",
+    "start_time": 28.0,
+    "end_time": 36.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "A, B, C, D, sing along with me,",
+      "Letters are as happy as happy can be!"
+    ],
+    "display_text": "A, B, C, D, sing along with me, Letters are as happy as happy can be!",
+    "action": "Trace letters in air",
+    "camera_motion": "pan_left",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Trace letters in air. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_05.png",
+    "audio_filename": "audio_05.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_05.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_05.mp3"
+  },
+  {
+    "scene_number": 6,
+    "section_type": "Chorus",
+    "start_time": 36.0,
+    "end_time": 44.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Chirp the sounds, clap to the beat,",
+      "Reading with Pip is such a sunny treat!"
+    ],
+    "display_text": "Chirp the sounds, clap to the beat, Reading with Pip is such a sunny treat!",
+    "action": "Flutter wings joyfully",
+    "camera_motion": "zoom_in",
+    "sfx": "clap",
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Flutter wings joyfully. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_06.png",
+    "audio_filename": "audio_06.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_06.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_06.mp3",
+    "sfx_file": "D:\\TinyTots Tunes\\data\\sfx\\clap.wav"
+  },
+  {
+    "scene_number": 7,
+    "section_type": "Verse 2",
+    "start_time": 44.0,
+    "end_time": 52.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "D is for Duck saying quack quack quack,",
+      "E is for Elephant with trunks right on track!"
+    ],
+    "display_text": "D is for Duck saying quack quack quack, E is for Elephant with trunks right on track!",
+    "action": "Duck bill hand motion",
+    "camera_motion": "pan_right",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 2. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Duck bill hand motion. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_07.png",
+    "audio_filename": "audio_07.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_07.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_07.mp3"
+  },
+  {
+    "scene_number": 8,
+    "section_type": "Verse 2",
+    "start_time": 52.0,
+    "end_time": 58.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "F is for Frog hopping in the spring,",
+      "Oh what joyful happiness letters bring!"
+    ],
+    "display_text": "F is for Frog hopping in the spring, Oh what joyful happiness letters bring!",
+    "action": "Little frog hop",
+    "camera_motion": "gentle_bounce",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Verse 2. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Little frog hop. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_08.png",
+    "audio_filename": "audio_08.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_08.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_08.mp3"
+  },
+  {
+    "scene_number": 9,
+    "section_type": "Chorus",
+    "start_time": 58.0,
+    "end_time": 66.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "A, B, C, D, sing along with me,",
+      "Letters are as happy as happy can be!"
+    ],
+    "display_text": "A, B, C, D, sing along with me, Letters are as happy as happy can be!",
+    "action": "Point to floating cloud letters",
+    "camera_motion": "zoom_out",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Point to floating cloud letters. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_09.png",
+    "audio_filename": "audio_09.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_09.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_09.mp3"
+  },
+  {
+    "scene_number": 10,
+    "section_type": "Chorus",
+    "start_time": 66.0,
+    "end_time": 74.0,
+    "duration": 8.0,
+    "lyrics_lines": [
+      "Chirp the sounds, clap to the beat,",
+      "Reading with Pip is such a sunny treat!"
+    ],
+    "display_text": "Chirp the sounds, clap to the beat, Reading with Pip is such a sunny treat!",
+    "action": "Point to floating cloud letters",
+    "camera_motion": "pan_left",
+    "sfx": "clap",
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Chorus. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Point to floating cloud letters. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_10.png",
+    "audio_filename": "audio_10.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_10.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_10.mp3",
+    "sfx_file": "D:\\TinyTots Tunes\\data\\sfx\\clap.wav"
+  },
+  {
+    "scene_number": 11,
+    "section_type": "Outro",
+    "start_time": 74.0,
+    "end_time": 80.0,
+    "duration": 6.0,
+    "lyrics_lines": [
+      "You know your phonics sounds so well!",
+      "Pip the Bird is cheering for you! Hooray!"
+    ],
+    "display_text": "You know your phonics sounds so well! Pip the Bird is cheering for you! Hooray!",
+    "action": "Bow sweetly",
+    "camera_motion": "zoom_in",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Outro. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Bow sweetly. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_11.png",
+    "audio_filename": "audio_11.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_11.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_11.mp3"
+  },
+  {
+    "scene_number": 12,
+    "section_type": "Outro",
+    "start_time": 80.0,
+    "end_time": 84.0,
+    "duration": 4.0,
+    "lyrics_lines": [
+      "Keep singing your ABCs! Bye-bye!"
+    ],
+    "display_text": "Keep singing your ABCs! Bye-bye!",
+    "action": "Bow sweetly",
+    "camera_motion": "pan_right",
+    "sfx": null,
+    "visual_prompt": "Preschool 3D animated cartoon scene, a colorful whimsical preschool landscape with soft rolling green hills, fluffy heart-shaped clouds, and cheerful flowers in the style of Outro. Focus on character is Pip the Bird, an original preschool cartoon Yellow Songbird, exact signature wardrobe: Tiny sky-blue aviator cap with soft felt goggles pushed up on his forehead, color palette: #FFD166 (Sunshine Yellow), #FF9F1C (Bright Orange Beak), #118AB2 (Sky Blue Cap), #FFFFFF (Feather Accents), features: Chubby round canary body, joyful tuft of head feathers, tiny orange beak, wide expressive anime-styled eyes that blink together, proportions: chubby toddler proportions, 1:2 head-to-body ratio, rounded limbs, soft edges, Pixar 3D cute cartoon aesthetic, soft cinematic lighting, bright cheerful colors, child-friendly masterpiece, expressive animated facial expression. Character is Bow sweetly. Very bright lighting, happy joyful aesthetic, clean high definition rendering, 8k",
+    "image_filename": "scene_12.png",
+    "audio_filename": "audio_12.mp3",
+    "image_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\assets\\scene_12.png",
+    "audio_file": "D:\\TinyTots Tunes\\projects\\proj_video_02\\audio\\audio_12.mp3"
+  }
+]

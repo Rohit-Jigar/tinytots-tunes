@@ -32,11 +32,19 @@ class AudioPostProduction:
             "acompressor=threshold=-18dB:ratio=3.5:attack=15:release=120,"
             "loudnorm=I=-14:LRA=7:TP=-1.5"
         )
+        ext = Path(output_audio).suffix.lower()
+        if ext == ".mp3":
+            codec_args = ["-c:a", "libmp3lame", "-b:a", "192k"]
+        elif ext in (".wav", ".wave"):
+            codec_args = ["-c:a", "pcm_s16le"]
+        else:
+            codec_args = ["-c:a", "aac", "-b:a", "192k"]
+
         cmd = [
             config.FFMPEG_PATH, "-y",
             "-i", input_audio,
             "-af", filter_chain,
-            "-c:a", "aac", "-b:a", "192k",
+            *codec_args,
             output_audio
         ]
         logger.info("Applying broadcast audio mastering chain to %s...", Path(input_audio).name)

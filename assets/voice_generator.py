@@ -132,7 +132,9 @@ class EdgeTTSVoiceProvider(BaseVoiceProvider):
     def synthesize_speech(self, text: str, output_path: str, voice_name: Optional[str] = None) -> str:
         voice = voice_name or config.DEFAULT_VOICE_NAME or "en-US-AnaNeural"
         clean_text = text.strip()
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        parent_dir = os.path.dirname(output_path)
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
 
         try:
             import edge_tts
@@ -172,7 +174,9 @@ class OpenAITTSVoiceProvider(BaseVoiceProvider):
         resp = requests.post("https://api.openai.com/v1/audio/speech", json=payload, headers=headers, timeout=30)
         resp.raise_for_status()
 
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        parent_dir = os.path.dirname(output_path)
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
         with open(output_path, "wb") as f:
             f.write(resp.content)
 
@@ -201,7 +205,9 @@ class ElevenLabsVoiceProvider(BaseVoiceProvider):
             resp = requests.post(url, json=payload, headers=headers, timeout=12)
             resp.raise_for_status()
 
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            parent_dir = os.path.dirname(output_path)
+            if parent_dir:
+                os.makedirs(parent_dir, exist_ok=True)
             with open(output_path, "wb") as f:
                 f.write(resp.content)
 

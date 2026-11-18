@@ -6,7 +6,7 @@
   "inspections": {
     "1_container_integrity": {
       "pass": true,
-      "details": "Valid MP4 container (70.11 MB)"
+      "details": "Valid MP4 container (12.89 MB)"
     },
     "2_resolution_1080p": {
       "pass": true,
@@ -14,16 +14,16 @@
     },
     "3_duration_compliance": {
       "pass": true,
-      "details": "Duration: 68.37 seconds (1.1 minutes)",
-      "duration_sec": 68.367256
+      "details": "Duration: 70.85 seconds (1.2 minutes)",
+      "duration_sec": 70.845333
     },
     "4_audio_loudness": {
       "pass": true,
-      "details": "Audio OK: aac 1ch (Max: -8.2 dB, Mean: -27.2 dB)"
+      "details": "Audio OK: aac 1ch (Max: -6.9 dB, Mean: -22.1 dB)"
     },
     "5_av_duration_sync": {
       "pass": true,
-      "details": "A/V sync tight: delta = 0.079s"
+      "details": "A/V sync tight: delta = 0.045s"
     },
     "6_subtitles_valid": {
       "pass": true,
@@ -47,5 +47,5 @@
     }
   },
   "video_path": "output\\video_02\\final_video.mp4",
-  "inspected_at": "\"1794763635.1304336\""
+  "inspected_at": "\"1795021616.2444067\""
 }
