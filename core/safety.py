@@ -10,8 +10,9 @@ RESTRICTED_KEYWORDS = [
     # Baby Shark / Pinkfong
     "baby shark", "pinkfong", "bebe finn", "william the fish", "hogi",
     # Disney & Pixar
+    "disney",
     "mickey mouse", "minnie mouse", "donald duck", "daisy duck", "goofy", "pluto",
-    "elsa", "anna", "olaf", "frozen", "lightning mcqueen", "mater", "cars",
+    "elsa", "anna", "olaf", "frozen", "lightning mcqueen", "mater",
     "winnie the pooh", "tigger", "eeyore", "piglet",
     # Nickelodeon & Spin Master
     "paw patrol", "chase", "marshall", "skye", "rubble", "zuma", "rocky", "ryder",

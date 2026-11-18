@@ -20,7 +20,7 @@ DEFAULT_PRESET_CHARACTERS: List[Character] = [
             "style": "cheerful, comforting, melodious"
         },
         animation_habits="Bouncy knee-bends on downbeats, patting tummy when excited, waving both paws joyfully",
-        visual_prompt="cute 3D cartoon baby brown teddy bear named Barnaby Bear, soft warm honey-brown plush fur, cream tummy, wearing teal dungarees with red button, Disney-Pixar 3D preschool animation style, soft cinematic rim lighting, 8k",
+        visual_prompt="cute 3D cartoon baby brown teddy bear named Barnaby Bear, soft warm honey-brown plush fur, cream tummy, wearing teal dungarees with red button, vibrant 3D preschool animation style, soft cinematic rim lighting, 8k",
         reference_image_path="data/characters/barnaby_bear_ref.png"
     ),
 
@@ -42,7 +42,7 @@ DEFAULT_PRESET_CHARACTERS: List[Character] = [
             "style": "chirpy, bright, high-energy"
         },
         animation_habits="Quick joyful wing flutters, head tilts left-and-right, hovering slightly off the ground",
-        visual_prompt="adorable chubby baby cartoon songbird Pip, bright sunshine yellow feathers, sky-blue aviator cap with goggles, orange beak, big sparkling eyes, singing joyfully, Pixar 3D preschool render, 8k",
+        visual_prompt="adorable chubby baby cartoon songbird Pip, bright sunshine yellow feathers, sky-blue aviator cap with goggles, orange beak, big sparkling eyes, singing joyfully, vibrant 3D preschool render, 8k",
         reference_image_path="data/characters/pip_bird_ref.png"
     ),
 

@@ -92,7 +92,7 @@ interaction_id_scene2 = response_scene2["interaction_id"]
 
 When directing preschool animation using Gemini Interactions API, use these vetted tokens:
 
-- **Lighting & Style**: `"Disney-Pixar 3D preschool animation style, soft volumetric sunny rim light, vibrant saturated primary colors, clean render, 4k"`.
+- **Lighting & Style**: `"High-end 3D preschool CGI animation style, soft volumetric sunny rim light, vibrant saturated primary colors, clean render, 4k"`.
 - **Character Pacing**: `"Gentle rhythmic swaying, bouncy toddler timing, expressive wide eyes, joyful friendly smile"`.
 - **Camera Trajectories**:
   - `slow_center_dolly_in`: Gentle zoom toward character's smile.
