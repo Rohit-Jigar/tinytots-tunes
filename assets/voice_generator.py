@@ -197,14 +197,18 @@ class ElevenLabsVoiceProvider(BaseVoiceProvider):
             "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
         }
 
-        resp = requests.post(url, json=payload, headers=headers, timeout=40)
-        resp.raise_for_status()
+        try:
+            resp = requests.post(url, json=payload, headers=headers, timeout=12)
+            resp.raise_for_status()
 
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, "wb") as f:
-            f.write(resp.content)
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            with open(output_path, "wb") as f:
+                f.write(resp.content)
 
-        return output_path
+            return output_path
+        except Exception as e:
+            logger.warning("ElevenLabs request error: %s. Using high-quality Edge-TTS child voice fallback.", e)
+            return EdgeTTSVoiceProvider().synthesize_speech(text, output_path, voice_name=voice_name)
 
 class VoiceOrchestrator:
     """Manages multi-provider voice generation with automatic local fallback."""
@@ -225,7 +229,10 @@ class VoiceOrchestrator:
         try:
             return provider.synthesize_speech(text, output_path, voice_name=voice_name)
         except Exception as e:
-            logger.warning("Primary voice provider '%s' failed: %s. Falling back to Windows SAPI synthesizer.", chosen, e)
-            return self.providers["windows_sapi"].synthesize_speech(text, output_path, voice_name=voice_name)
+            logger.warning("Primary voice provider '%s' failed: %s. Falling back to Microsoft Edge Neural child voice.", chosen, e)
+            try:
+                return self.providers["edge_tts"].synthesize_speech(text, output_path, voice_name=voice_name)
+            except Exception:
+                return self.providers["windows_sapi"].synthesize_speech(text, output_path, voice_name=voice_name)
 
 voice_generator = VoiceOrchestrator()

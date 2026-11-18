@@ -25,3 +25,17 @@ def test_windows_sapi_voice(tmp_path):
     assert os.path.exists(out)
     assert os.path.getsize(out) > 1000
 
+def test_image_orchestrator_replicate_resilience(tmp_path):
+    from assets.image_generator import image_generator
+    img_file = str(tmp_path / "test_replicate.png")
+    out = image_generator.generate("cute 3D cartoon bear", img_file, provider_name="replicate", width=640, height=360)
+    assert os.path.exists(out)
+    assert os.path.getsize(out) > 5000
+
+def test_voice_orchestrator_elevenlabs_resilience(tmp_path):
+    from assets.voice_generator import voice_generator
+    vox_file = str(tmp_path / "test_elevenlabs.wav")
+    out = voice_generator.synthesize("Hello little friends!", vox_file, provider_name="elevenlabs")
+    assert os.path.exists(out)
+    assert os.path.getsize(out) > 500
+

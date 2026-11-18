@@ -38,6 +38,10 @@ class Config:
     ELEVENLABS_API_KEY: Optional[str] = os.getenv("ELEVENLABS_API_KEY")
     ELEVENLABS_VOICE_ID: Optional[str] = os.getenv("ELEVENLABS_VOICE_ID")
     SUNO_API_KEY: Optional[str] = os.getenv("SUNO_API_KEY")
+    HUGGINGFACE_API_TOKEN: Optional[str] = os.getenv("HUGGINGFACE_API_TOKEN")
+    REPLICATE_API_TOKEN: Optional[str] = os.getenv("REPLICATE_API_TOKEN")
+    GROQ_API_KEY: Optional[str] = os.getenv("GROQ_API_KEY")
+    GEMINI_API_KEY: Optional[str] = os.getenv("GEMINI_API_KEY")
 
     # Video Engines
     FFMPEG_PATH: str = os.getenv("FFMPEG_PATH", "ffmpeg")

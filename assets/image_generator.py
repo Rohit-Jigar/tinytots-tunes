@@ -115,6 +115,53 @@ class StabilityImageProvider(BaseImageProvider):
 
         return output_path
 
+class ReplicateImageProvider(BaseImageProvider):
+    """
+    Generates high-definition 3D cartoon illustrations using Replicate API (Flux / SDXL).
+    Gracefully falls back to Pollinations or Mock if credit is low.
+    """
+    def generate_image(self, prompt: str, output_path: str, width: int = 1920, height: int = 1080) -> str:
+        if not config.REPLICATE_API_TOKEN:
+            raise ValueError("REPLICATE_API_TOKEN is not configured in .env!")
+
+        safe_prompt = SafetyChecker.sanitize_prompt(prompt)
+        url = "https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions"
+        headers = {
+            "Authorization": f"Bearer {config.REPLICATE_API_TOKEN}",
+            "Content-Type": "application/json",
+            "Prefer": "wait"
+        }
+        payload = {
+            "input": {
+                "prompt": f"Cute 3D Pixar preschool cartoon animation style, {safe_prompt}, soft studio lighting, vibrant colors, 8k",
+                "aspect_ratio": "16:9",
+                "output_format": "jpg"
+            }
+        }
+        logger.info("Calling Replicate Flux for 3D image: %s...", safe_prompt[:50])
+        resp = requests.post(url, headers=headers, json=payload, timeout=45)
+        resp.raise_for_status()
+        data = resp.json()
+        output_url = data.get("output")
+        if isinstance(output_url, list):
+            output_url = output_url[0]
+        if not output_url:
+            raise RuntimeError(f"Replicate did not return output image: {data}")
+
+        img_bytes = requests.get(output_url, timeout=30).content
+        parent_dir = os.path.dirname(output_path)
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
+        with open(output_path, "wb") as f:
+            f.write(img_bytes)
+
+        with Image.open(output_path) as im:
+            im = im.resize((width, height), Image.Resampling.LANCZOS)
+            im.save(output_path)
+
+        logger.info("Saved Replicate 3D image to %s", output_path)
+        return output_path
+
 class MockImageProvider(BaseImageProvider):
     """
     Procedural Vector-Style Graphic Generator:
@@ -237,6 +284,7 @@ class ImageOrchestrator:
     def __init__(self):
         self.providers = {
             "pollinations": PollinationsImageProvider(),
+            "replicate": ReplicateImageProvider(),
             "openai": OpenAIImageProvider(),
             "stability": StabilityImageProvider(),
             "mock": MockImageProvider()
@@ -253,8 +301,13 @@ class ImageOrchestrator:
         try:
             return provider.generate_image(prompt, output_path, width=width, height=height)
         except Exception as e:
-            logger.warning("Primary image provider '%s' failed: %s. Switching to Mock Image Generator circuit.", chosen, e)
+            logger.warning("Primary image provider '%s' failed: %s. Attempting fallback.", chosen, e)
             self._offline_providers.add(chosen)
+            if chosen in ("replicate", "openai", "stability"):
+                try:
+                    return self.providers["pollinations"].generate_image(prompt, output_path, width=width, height=height)
+                except Exception as p_err:
+                    logger.warning("Pollinations fallback failed: %s. Switching to Mock.", p_err)
             return self.providers["mock"].generate_image(prompt, output_path, width=width, height=height)
 
 image_generator = ImageOrchestrator()
