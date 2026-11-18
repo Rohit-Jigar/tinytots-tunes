@@ -17,9 +17,23 @@ from planner.planner import content_planner
 from planner.catalog_20 import catalog_manager
 from automation.queue_manager import queue_manager
 from automation.worker import worker
+from fastapi.middleware.cors import CORSMiddleware
 from youtube.uploader import youtube_uploader
 
-app = FastAPI(title="TinyTots Tunes Video Factory", version="1.0.0")
+app = FastAPI(
+    title="TinyTots Tunes Video Factory API",
+    version="2.0.0",
+    description="Production-grade AI Preschool Animation & Music Studio Backend"
+)
+
+# Enable Cross-Origin Resource Sharing (CORS) for GitHub Pages & distributed clients
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Mount Static Files and Projects Media Directory
 templates_dir = Path(__file__).parent / "templates"
@@ -219,7 +233,105 @@ async def pilots_view(request: Request, active: Optional[str] = "video_01"):
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "ok", "app": "TinyTots Tunes Studio", "version": "2.0.0"}
+    return {
+        "status": "ok",
+        "app": "TinyTots Tunes Studio",
+        "version": "2.0.0",
+        "environment": os.getenv("APP_ENV", "production"),
+        "ffmpeg": get_system_status()["ffmpeg"]["installed"]
+    }
+
+@app.get("/api/catalog")
+async def api_catalog():
+    """Returns official 20-song curriculum catalog as JSON."""
+    catalog = catalog_manager.get_catalog()
+    catalog_display = []
+    for s in catalog:
+        song_id = s["id"]
+        v_path = config.BASE_DIR / "output" / song_id / "final_video.mp4"
+        r_path = config.BASE_DIR / "output" / song_id / "production_report.json"
+        produced = v_path.exists()
+        qc_score = 0.0
+        if r_path.exists():
+            try:
+                import json
+                with open(r_path, "r", encoding="utf-8") as rf:
+                    qc_score = json.load(rf).get("overall_score", 0.0)
+            except Exception:
+                pass
+        char = character_manager.get_character(s.get("lead_character_id"))
+        catalog_display.append({
+            **s,
+            "produced": produced,
+            "qc_score": qc_score,
+            "lead_character_name": char.name if char else s.get("lead_character_id"),
+            "video_url": f"/output/{song_id}/final_video.mp4" if produced else None,
+            "thumbnail_url": f"/output/{song_id}/thumbnail.png" if (config.BASE_DIR / "output" / song_id / "thumbnail.png").exists() else None
+        })
+    return {"catalog": catalog_display, "total": len(catalog_display)}
+
+@app.get("/api/pilots")
+async def api_pilots():
+    """Returns pilot deliverables, inspection scorecards, and media URLs as JSON."""
+    import json
+    pilot_ids = ["video_01", "video_02"]
+    pilot_list = []
+
+    for pid in pilot_ids:
+        song_num = int(pid.replace("video_", ""))
+        song_info = catalog_manager.get_song_by_number(song_num)
+        v_path = config.BASE_DIR / "output" / pid / "final_video.mp4"
+        r_path = config.BASE_DIR / "output" / pid / "production_report.json"
+        l_path = config.BASE_DIR / "output" / pid / "lyrics.txt"
+        t_path = config.BASE_DIR / "output" / pid / "thumbnail.png"
+        ready = v_path.exists() and r_path.exists()
+
+        report_data = {}
+        lyrics_text = ""
+        if ready:
+            try:
+                with open(r_path, "r", encoding="utf-8") as rf:
+                    report_data = json.load(rf)
+                with open(l_path, "r", encoding="utf-8") as lf:
+                    lyrics_text = lf.read()
+            except Exception:
+                pass
+
+        char = character_manager.get_character(song_info.get("lead_character_id")) if song_info else None
+        pilot_list.append({
+            "id": pid,
+            "number": song_num,
+            "title": song_info["title"] if song_info else pid.upper(),
+            "badge": "🦖 Pilot 01" if pid == "video_01" else "🔤 Pilot 02",
+            "character": char.name if char else "Barnaby Bear",
+            "ready": ready,
+            "video_url": f"/output/{pid}/final_video.mp4" if ready else None,
+            "thumbnail_url": f"/output/{pid}/thumbnail.png" if t_path.exists() else None,
+            "subtitles_url": f"/output/{pid}/subtitles.srt" if ready else None,
+            "report": report_data,
+            "lyrics": lyrics_text
+        })
+    return {"pilots": pilot_list}
+
+@app.get("/api/characters")
+async def api_characters():
+    """Returns registered characters roster as JSON."""
+    chars = character_manager.list_characters()
+    return {
+        "characters": [c.model_dump() if hasattr(c, "model_dump") else c.dict() for c in chars],
+        "total": len(chars)
+    }
+
+@app.get("/api/system/status")
+async def api_system_status():
+    """Returns system status and engines availability as JSON."""
+    return get_system_status()
+
+@app.get("/api/queue")
+async def api_queue():
+    """Returns active and recent background production jobs as JSON."""
+    jobs = db.list_jobs(limit=50)
+    return {"jobs": jobs}
 
 @app.get("/settings", response_class=HTMLResponse)
 async def settings_view(request: Request):
@@ -233,9 +345,12 @@ async def settings_view(request: Request):
 # ----------------------------------------------------
 
 @app.post("/api/catalog/produce/{song_number}")
-async def produce_catalog_endpoint(song_number: int, background_tasks: BackgroundTasks):
+async def produce_catalog_endpoint(song_number: int, background_tasks: BackgroundTasks, request: Request):
     from automation.pilot_producer import pilot_producer
     background_tasks.add_task(pilot_producer.produce_catalog_video, song_number)
+    accept = request.headers.get("accept", "")
+    if "application/json" in accept or "json" in accept:
+        return JSONResponse({"status": "queued", "song_number": song_number, "message": f"Production queued for song #{song_number:02d}"})
     return RedirectResponse(url="/pilots" if song_number in (1, 2) else "/catalog", status_code=303)
 
 @app.post("/api/projects/plan")

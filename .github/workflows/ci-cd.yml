@@ -1,0 +1,166 @@
+name: TinyTots Tunes CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "ci-cd-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  # -------------------------------------------------------------
+  # STAGE 1: Code Quality, Safety & Copyright Compliance Audit
+  # -------------------------------------------------------------
+  lint-and-safety:
+    name: Code Quality & Copyright Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest pydantic
+          pip install -r requirements.txt
+
+      - name: Lint Python syntax with Flake8
+        run: |
+          # Stop build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics --exclude=.git,__pycache__,docs,temp
+          # Complexity & warning checks
+          flake8 . --count --exit-zero --max-complexity=15 --max-line-length=140 --statistics --exclude=.git,__pycache__,docs,temp
+
+      - name: Copyright & Character Safety Verification
+        run: |
+          python -m pytest tests/test_safety.py -v
+
+  # -------------------------------------------------------------
+  # STAGE 2: Automated Pytest Suite & Media Engine Verification
+  # -------------------------------------------------------------
+  test-suite:
+    name: Automated Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install system multimedia dependencies (FFmpeg)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Full Test Suite
+        env:
+          APP_ENV: testing
+          IMAGE_PROVIDER: mock
+          VOICE_PROVIDER: edge_tts
+          MUSIC_PROVIDER: procedural
+        run: |
+          python -m pytest tests/ -v
+
+  # -------------------------------------------------------------
+  # STAGE 3: Production Docker Image Build & Verification
+  # -------------------------------------------------------------
+  docker-validation:
+    name: Docker Container Build & Health Validation
+    runs-on: ubuntu-latest
+    needs: [lint-and-safety, test-suite]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Container
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: tinytots-tunes-studio:latest
+          outputs: type=docker,dest=/tmp/tinytots-image.tar
+
+      - name: Validate Container Health in Runtime
+        run: |
+          docker load -i /tmp/tinytots-image.tar
+          docker run -d --name test-studio -p 8000:8000 tinytots-tunes-studio:latest
+          sleep 5
+          docker logs test-studio
+          curl -f http://localhost:8000/api/health || exit 1
+          docker stop test-studio
+
+  # -------------------------------------------------------------
+  # STAGE 4: Deploy Static Decoupled Frontend to GitHub Pages
+  # -------------------------------------------------------------
+  deploy-frontend-pages:
+    name: Deploy Frontend to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: [lint-and-safety, test-suite]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Frontend Artifact from docs/
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # -------------------------------------------------------------
+  # STAGE 5: Trigger Render Backend Deployment
+  # -------------------------------------------------------------
+  deploy-backend-render:
+    name: Trigger Render Backend Deployment
+    runs-on: ubuntu-latest
+    needs: [docker-validation, deploy-frontend-pages]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    steps:
+      - name: Trigger Render Deploy Hook (if secret configured)
+        env:
+          RENDER_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$RENDER_HOOK" ]; then
+            echo "Triggering automated Render deployment hook..."
+            curl -X POST "$RENDER_HOOK"
+            echo "Deploy hook successfully triggered."
+          else
+            echo "INFO: RENDER_DEPLOY_HOOK_URL secret not set. Render will automatically deploy via GitHub autoDeploy or manual sync."
+          fi

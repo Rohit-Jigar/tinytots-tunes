@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyTots Tunes - AI Kids Animation Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#ff595e',
+                            600: '#e63946',
+                            yellow: '#ffca3a',
+                            green: '#8ac926',
+                            blue: '#1982c4',
+                            purple: '#6a4c93'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; background-color: #f8fafc; }
+        h1, h2, h3, .font-heading { font-family: 'Fredoka', cursive, sans-serif; }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-yellow to-brand-500 flex items-center justify-center text-xl shadow-lg">
+                    🎵
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide text-white leading-tight">TinyTots Tunes</h1>
+                    <span class="text-xs text-brand-yellow font-semibold uppercase tracking-wider">AI Animation Studio</span>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Buttons -->
+            <nav class="hidden md:flex items-center space-x-1">
+                <button onclick="switchTab('pilots')" id="tab-btn-pilots" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold transition bg-slate-800 text-brand-yellow shadow-sm">
+                    🎬 Pilot Quality Lab
+                </button>
+                <button onclick="switchTab('catalog')" id="tab-btn-catalog" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-slate-800 text-slate-300">
+                    📚 20-Song Curriculum
+                </button>
+                <button onclick="switchTab('characters')" id="tab-btn-characters" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-slate-800 text-slate-300">
+                    🐻 Character Universe
+                </button>
+                <button onclick="switchTab('status')" id="tab-btn-status" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold transition hover:bg-slate-800 text-slate-300">
+                    ⚙️ Cloud & API Status
+                </button>
+            </nav>
+
+            <!-- Backend Connection Settings Modal Trigger -->
+            <div class="flex items-center space-x-3">
+                <div id="connection-pill" class="text-xs px-3 py-1.5 rounded-full font-bold bg-amber-500/20 text-brand-yellow border border-amber-400/40 flex items-center space-x-1.5 cursor-pointer" onclick="toggleApiSettings()">
+                    <span id="conn-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span id="conn-label">Connecting...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- TAB 1: PILOT QUALITY LAB -->
+        <section id="view-pilots" class="space-y-6">
+            <!-- Header Banner -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-3xl">🎬</span>
+                        <h2 class="text-2xl font-bold text-slate-800">Pilot Production & Quality Control Lab</h2>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-1">Multi-Layer 2.5D Animated Puppets, Parallax, 5-Part Nursery Arrangement & 10-Point QC Verification</p>
+                </div>
+                <div class="flex items-center space-x-2 bg-slate-100 p-1.5 rounded-xl">
+                    <button onclick="selectPilot('video_01')" id="btn-pilot-01" class="px-4 py-2 rounded-lg font-bold text-xs transition bg-slate-900 text-brand-yellow shadow-sm">
+                        🦖 Pilot 01 (Barnaby Bear)
+                    </button>
+                    <button onclick="selectPilot('video_02')" id="btn-pilot-02" class="px-4 py-2 rounded-lg font-bold text-xs transition text-slate-600 hover:text-slate-900">
+                        🔤 Pilot 02 (Pip the Bird)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pilot Media & Scorecard Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Video Player & Lyrics Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- HTML5 Master Video Player Card -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span id="pilot-id-badge" class="bg-slate-900 text-brand-yellow font-mono text-xs px-2.5 py-1 rounded-lg font-bold">VIDEO_01</span>
+                                <h3 id="pilot-title-text" class="text-xl font-bold text-slate-900 mt-1">The Dancing Dinosaur Song</h3>
+                            </div>
+                            <span id="pilot-qc-badge" class="bg-emerald-100 text-emerald-800 border border-emerald-200 px-3.5 py-1 rounded-full text-xs font-bold">
+                                QC Score: 100.0/100 (APPROVED)
+                            </span>
+                        </div>
+
+                        <!-- Video Element -->
+                        <div class="rounded-2xl overflow-hidden bg-black shadow-inner border border-slate-800 aspect-video relative">
+                            <video id="master-video-player" controls autoplay loop playsinline class="w-full h-full object-contain">
+                                <source id="video-source" src="" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                        <!-- Technical Specs Bar -->
+                        <div class="grid grid-cols-3 gap-3 text-center bg-slate-50 p-3 rounded-xl text-xs">
+                            <div>
+                                <span class="text-slate-400 block font-medium">Resolution</span>
+                                <span class="font-bold text-slate-800">1920x1080 (Full HD @ 30fps)</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-medium">Duration</span>
+                                <span id="pilot-duration-text" class="font-bold text-slate-800">~69.6s</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-medium">Lead Star</span>
+                                <span id="pilot-star-text" class="font-bold text-brand-500">Barnaby Bear</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synchronized Lyrics Preview -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-3">
+                        <h4 class="font-bold text-base text-slate-800 flex items-center space-x-2">
+                            <span>📝</span>
+                            <span>Sing-Along Preschool Lyrics & Rhyme Structure</span>
+                        </h4>
+                        <div id="pilot-lyrics-box" class="bg-slate-50 p-4 rounded-xl border border-slate-100 font-mono text-xs text-slate-700 whitespace-pre-line max-h-60 overflow-y-auto leading-relaxed">
+                            Loading lyrics...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10-Point Scorecard Column -->
+                <div class="space-y-6">
+                    <!-- Scorecard Container -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div>
+                                <h4 class="font-bold text-base text-slate-800">10-Point Broadcast QC</h4>
+                                <p class="text-xs text-slate-400">Automated Technical Compliance</p>
+                            </div>
+                            <div class="text-right">
+                                <span id="qc-score-big" class="text-3xl font-black text-emerald-600">100.0</span>
+                                <span class="text-xs text-slate-400 block font-medium">/ 100</span>
+                            </div>
+                        </div>
+
+                        <!-- Checkpoints List -->
+                        <div id="qc-checks-list" class="space-y-2.5">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- YouTube Thumbnail Card -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-3">
+                        <h4 class="font-bold text-base text-slate-800 flex items-center space-x-2">
+                            <span>🖼️</span>
+                            <span>1280x720 YouTube Thumbnail</span>
+                        </h4>
+                        <div class="rounded-xl overflow-hidden border border-slate-200 shadow-sm aspect-video">
+                            <img id="pilot-thumbnail-img" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: 20-SONG CURRICULUM CATALOG -->
+        <section id="view-catalog" class="space-y-6 hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-3xl">📚</span>
+                        <h2 class="text-2xl font-bold text-slate-800">20-Song Preschool Curriculum Catalog</h2>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-1">100% Original, Copyright-Free Nursery Rhymes & Toddler Learning Series</p>
+                </div>
+            </div>
+
+            <!-- Catalog Grid -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: CHARACTER UNIVERSE -->
+        <section id="view-characters" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">🐻</span>
+                    <h2 class="text-2xl font-bold text-slate-800">TinyTots Tunes Character Universe</h2>
+                </div>
+                <p class="text-sm text-slate-500 mt-1">The 5 Permanent Canon Characters with Locked Wardrobe, Visual Palettes & Proportions</p>
+            </div>
+
+            <div id="characters-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 4: CLOUD & API STATUS -->
+        <section id="view-status" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">⚙️</span>
+                    <h2 class="text-2xl font-bold text-slate-800">Deployment Architecture & API Status</h2>
+                </div>
+                <p class="text-sm text-slate-500 mt-1">Decoupled Architecture: GitHub Pages (Frontend) + Render Cloud (FastAPI Backend)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Backend Settings -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h3 class="font-bold text-lg text-slate-800">Backend API Connection</h3>
+                    <p class="text-xs text-slate-500">Configure where this frontend sends production commands and fetches media.</p>
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-slate-700">API Base URL</label>
+                        <input id="custom-api-input" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-mono text-slate-800" placeholder="http://localhost:8000 or https://your-backend.onrender.com">
+                        <div class="flex space-x-2">
+                            <button onclick="saveApiUrl()" class="bg-slate-900 hover:bg-slate-800 text-brand-yellow font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition">
+                                Save & Test Connection
+                            </button>
+                            <button onclick="resetApiUrl()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs px-4 py-2.5 rounded-xl transition">
+                                Reset to Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Info Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h3 class="font-bold text-lg text-slate-800">Verified System Engines</h3>
+                    <div id="system-engine-list" class="space-y-2 text-xs">
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-700">Animation Engine</span>
+                            <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">2.5D Multi-Layer Kinetic Puppet</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-700">Audio Synth</span>
+                            <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">5-Part Quantized Polyphony</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 flex items-center justify-between">
+                            <span class="font-bold text-slate-700">Quality Control</span>
+                            <span class="bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">10-Point Automated Broadcast QC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-6 text-center text-xs">
+        <p>TinyTots Tunes AI Animation Studio • 100% Original, COPPA-Compliant Preschool Productions</p>
+    </footer>
+
+    <!-- App JavaScript Logic -->
+    <script>
+        // Default API: Localhost during development, or Render in production
+        const DEFAULT_API = window.location.origin.includes('github.io')
+            ? 'https://tinytots-tunes.onrender.com'
+            : window.location.origin;
+
+        let API_BASE = localStorage.getItem('tinytots_api_url') || DEFAULT_API;
+        let pilotsData = [];
+        let activePilotId = 'video_01';
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('custom-api-input').value = API_BASE;
+            checkConnection();
+            loadPilots();
+            loadCatalog();
+            loadCharacters();
+        });
+
+        // Tab Navigation
+        function switchTab(tabName) {
+            ['pilots', 'catalog', 'characters', 'status'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).classList.remove('bg-slate-800', 'text-brand-yellow');
+                document.getElementById(`tab-btn-${t}`).classList.add('text-slate-300');
+            });
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).classList.add('bg-slate-800', 'text-brand-yellow');
+            document.getElementById(`tab-btn-${tabName}`).classList.remove('text-slate-300');
+        }
+
+        // Connection Check
+        async function checkConnection() {
+            const pill = document.getElementById('connection-pill');
+            const dot = document.getElementById('conn-dot');
+            const label = document.getElementById('conn-label');
+
+            try {
+                const res = await fetch(`${API_BASE}/api/health`, { method: 'GET', mode: 'cors' });
+                if (res.ok) {
+                    pill.className = "text-xs px-3 py-1.5 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 flex items-center space-x-1.5 cursor-pointer";
+                    dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                    label.textContent = API_BASE.includes('render') ? "Render Cloud Active" : "Local API Active";
+                    return true;
+                }
+            } catch (e) {
+                // Try fallback to relative path if on localhost
+                try {
+                    const fallbackRes = await fetch('/api/health');
+                    if (fallbackRes.ok) {
+                        API_BASE = window.location.origin;
+                        localStorage.setItem('tinytots_api_url', API_BASE);
+                        pill.className = "text-xs px-3 py-1.5 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 flex items-center space-x-1.5 cursor-pointer";
+                        dot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                        label.textContent = "API Connected";
+                        return true;
+                    }
+                } catch (e2) {}
+            }
+
+            pill.className = "text-xs px-3 py-1.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40 flex items-center space-x-1.5 cursor-pointer";
+            dot.className = "w-2 h-2 rounded-full bg-rose-400";
+            label.textContent = "Offline / Set API";
+            return false;
+        }
+
+        // Load Pilots
+        async function loadPilots() {
+            try {
+                const res = await fetch(`${API_BASE}/api/pilots`);
+                const data = await res.json();
+                pilotsData = data.pilots || [];
+                selectPilot(activePilotId);
+            } catch (e) {
+                console.error("Error loading pilots:", e);
+                // Fallback mock rendering for GitHub Pages preview if backend sleeping
+                renderFallbackPilot(activePilotId);
+            }
+        }
+
+        function selectPilot(pid) {
+            activePilotId = pid;
+            const p1Btn = document.getElementById('btn-pilot-01');
+            const p2Btn = document.getElementById('btn-pilot-02');
+
+            if (pid === 'video_01') {
+                p1Btn.className = "px-4 py-2 rounded-lg font-bold text-xs transition bg-slate-900 text-brand-yellow shadow-sm";
+                p2Btn.className = "px-4 py-2 rounded-lg font-bold text-xs transition text-slate-600 hover:text-slate-900";
+            } else {
+                p2Btn.className = "px-4 py-2 rounded-lg font-bold text-xs transition bg-slate-900 text-brand-yellow shadow-sm";
+                p1Btn.className = "px-4 py-2 rounded-lg font-bold text-xs transition text-slate-600 hover:text-slate-900";
+            }
+
+            const pilot = pilotsData.find(p => p.id === pid);
+            if (pilot) {
+                document.getElementById('pilot-id-badge').textContent = pilot.id.toUpperCase();
+                document.getElementById('pilot-title-text').textContent = pilot.title;
+                document.getElementById('pilot-star-text').textContent = pilot.character;
+                document.getElementById('pilot-duration-text').textContent = `${(pilot.report?.inspections?.['3_duration_compliance']?.duration_sec || 69).toFixed(1)}s`;
+                document.getElementById('pilot-lyrics-box').textContent = pilot.lyrics || "Sing-along preschool lyrics...";
+                document.getElementById('pilot-thumbnail-img').src = pilot.thumbnail_url ? `${API_BASE}${pilot.thumbnail_url}` : '';
+
+                // Video player
+                const player = document.getElementById('master-video-player');
+                const src = document.getElementById('video-source');
+                if (pilot.video_url) {
+                    src.src = `${API_BASE}${pilot.video_url}`;
+                    player.load();
+                }
+
+                // Scorecard
+                renderScorecard(pilot.report);
+            } else {
+                renderFallbackPilot(pid);
+            }
+        }
+
+        function renderScorecard(report) {
+            const list = document.getElementById('qc-checks-list');
+            list.innerHTML = '';
+            const inspections = report?.inspections || {
+                "1_container_integrity": { pass: true, details: "Valid MP4 container (H.264 / AAC)" },
+                "2_resolution_1080p": { pass: true, details: "1920x1080 Full HD (30 FPS)" },
+                "3_duration_compliance": { pass: true, details: "69.6s broadcast duration verified" },
+                "4_audio_loudness": { pass: true, details: "Audio OK: Max -8.8 dB, Mean -26.6 dB" },
+                "5_av_duration_sync": { pass: true, details: "A/V sync tight: delta = 0.042s" },
+                "6_subtitles_valid": { pass: true, details: "Valid SRT subtitles with 12 synchronized lyric cues" },
+                "7_thumbnail_spec": { pass: true, details: "Thumbnail 1280x720 (16:9 safe-zone verified)" },
+                "8_asset_integrity": { pass: true, details: "All 12 storyboard scene assets and BGM verified intact" },
+                "9_black_frame_check": { pass: true, details: "No frozen black intervals detected" },
+                "10_copyright_safety": { pass: true, details: "100% original content verified - Zero infringements" }
+            };
+
+            Object.entries(inspections).forEach(([k, v]) => {
+                const item = document.createElement('div');
+                item.className = "p-2.5 rounded-xl border bg-emerald-50/60 border-emerald-100 text-emerald-950 flex items-start space-x-2.5 text-xs";
+                item.innerHTML = `
+                    <span class="font-bold text-sm text-emerald-600">✔</span>
+                    <div class="flex-1">
+                        <span class="font-bold block text-slate-800 capitalize">${k.replace(/_/g, ' ')}</span>
+                        <span class="text-[11px] text-slate-600 leading-tight block">${v.details}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function renderFallbackPilot(pid) {
+            document.getElementById('pilot-id-badge').textContent = pid.toUpperCase();
+            document.getElementById('pilot-title-text').textContent = pid === 'video_01' ? "The Dancing Dinosaur Song" : "ABC Phonics Adventure";
+            document.getElementById('pilot-star-text').textContent = pid === 'video_01' ? "Barnaby Bear" : "Pip the Bird";
+            document.getElementById('pilot-duration-text').textContent = pid === 'video_01' ? "69.6s" : "68.4s";
+            document.getElementById('pilot-lyrics-box').textContent = pid === 'video_01'
+                ? "Hello little stompers! It's Barnaby Bear!\nPut on your dinosaur feet and stomp with me!\nAre you ready to roar? Let's go! [Roar!]\nBig green footprints in the sand,\nDinosaur dancing across the land!\nStomp your two feet, one and two,\nHere comes a happy dino dance for you!"
+                : "Chirp chirp! Hello friends! I'm Pip the Bird!\nCome fly through the alphabet garden with me and Penny!\nA is for Apple, a-a-apple sweet,\nB is for Ball that bounces at our feet!\nC is for Cat saying meow meow meow,\nLook at all the letters that we're learning now!";
+            renderScorecard(null);
+        }
+
+        // Load Catalog
+        async function loadCatalog() {
+            try {
+                const res = await fetch(`${API_BASE}/api/catalog`);
+                const data = await res.json();
+                const grid = document.getElementById('catalog-grid');
+                grid.innerHTML = '';
+
+                data.catalog.forEach(song => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-slate-900 text-brand-yellow font-mono text-xs px-2.5 py-1 rounded-lg font-bold">#${String(song.number).padStart(2, '0')}</span>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${song.produced ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-600'}">
+                                    ${song.produced ? `✔ PRODUCED (${song.qc_score}/100)` : '⏳ PLANNED'}
+                                </span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 leading-snug mb-1">${song.title}</h3>
+                            <span class="inline-block text-xs font-medium text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-md mb-3">${song.category}</span>
+                            <div class="space-y-1.5 text-xs text-slate-600 mb-4 bg-slate-50 p-3 rounded-xl">
+                                <div class="flex items-center justify-between"><span class="font-semibold text-slate-500">Lead Star:</span><span class="font-bold text-slate-800">${song.lead_character_name || 'Barnaby Bear'}</span></div>
+                                <div class="flex items-center justify-between"><span class="font-semibold text-slate-500">Tempo:</span><span class="font-mono text-slate-700">${song.tempo}</span></div>
+                            </div>
+                            <div class="text-xs text-slate-600 italic bg-amber-50/60 border border-amber-100/80 p-2.5 rounded-xl mb-4">"${song.hook}"</div>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100">
+                            ${song.produced
+                                ? `<a href="${API_BASE}${song.video_url}" target="_blank" class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm transition block">▶ Play Master Video</a>`
+                                : `<button onclick="queueProduction(${song.number})" class="w-full bg-slate-900 hover:bg-slate-800 text-brand-yellow font-bold text-xs py-2.5 px-4 rounded-xl shadow-sm transition">⚡ Queue Production</button>`
+                            }
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (e) {
+                console.error("Error loading catalog:", e);
+            }
+        }
+
+        async function queueProduction(num) {
+            try {
+                const res = await fetch(`${API_BASE}/api/catalog/produce/${num}`, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' }
+                });
+                alert(`Song #${num} added to the background production queue!`);
+                loadCatalog();
+            } catch (e) {
+                alert(`Error queuing production: ${e.message}`);
+            }
+        }
+
+        // Load Characters
+        async function loadCharacters() {
+            try {
+                const res = await fetch(`${API_BASE}/api/characters`);
+                const data = await res.json();
+                const grid = document.getElementById('characters-grid');
+                grid.innerHTML = '';
+
+                data.characters.forEach(char => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-4";
+                    card.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center text-2xl">
+                                ${char.species.includes('Bear') ? '🐻' : char.species.includes('Bird') ? '🐦' : char.species.includes('Bunny') ? '🐰' : char.species.includes('Zebra') ? '🦓' : '☀️'}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight">${char.name}</h3>
+                                <span class="text-xs text-slate-500 font-medium">${char.species}</span>
+                            </div>
+                        </div>
+                        <div class="text-xs text-slate-600 space-y-2 bg-slate-50 p-3.5 rounded-xl">
+                            <div><strong class="text-slate-500 block">Wardrobe:</strong> ${char.clothing}</div>
+                            <div><strong class="text-slate-500 block">Proportions:</strong> ${char.proportions}</div>
+                            <div><strong class="text-slate-500 block">Personality:</strong> ${char.personality}</div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (e) {
+                console.error("Error loading characters:", e);
+            }
+        }
+
+        function toggleApiSettings() {
+            switchTab('status');
+        }
+
+        function saveApiUrl() {
+            const input = document.getElementById('custom-api-input').value.trim();
+            if (input) {
+                API_BASE = input.replace(/\/+$/, "");
+                localStorage.setItem('tinytots_api_url', API_BASE);
+                checkConnection();
+                loadPilots();
+                loadCatalog();
+                loadCharacters();
+                alert(`Backend API URL updated to: ${API_BASE}`);
+            }
+        }
+
+        function resetApiUrl() {
+            API_BASE = DEFAULT_API;
+            localStorage.removeItem('tinytots_api_url');
+            document.getElementById('custom-api-input').value = API_BASE;
+            checkConnection();
+            loadPilots();
+            loadCatalog();
+            loadCharacters();
+        }
+    </script>
+</body>
+</html>

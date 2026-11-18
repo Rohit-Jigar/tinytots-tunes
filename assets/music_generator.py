@@ -2,6 +2,7 @@ import os
 import math
 import wave
 import struct
+import subprocess
 import numpy as np
 from pathlib import Path
 from typing import Optional, Dict, Any, List
@@ -238,3 +239,4 @@ class MusicOrchestrator:
         return self.studio_synth.generate_music(prompt, duration_seconds, output_path, tempo=tempo)
 
 music_generator = MusicOrchestrator()
+ProceduralMusicProvider = StudioNurseryMusicEngine
