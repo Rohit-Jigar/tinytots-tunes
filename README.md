@@ -4,6 +4,13 @@ An automated Python-based animation and video production application built speci
 
 ---
 
+> 📖 **Quick Documentation Links**:
+> - [Free API Keys & Modern 3D Video Setup Guide](FREE_API_KEYS_GUIDE.md) — 100% free keys for 3D visuals, singing vocals, and high-speed generation.
+> - [Production Deployment Guide](DEPLOYMENT.md) — Step-by-step GitHub Pages frontend & Render backend cloud setup.
+> - [Live Web Portal](https://rohit-jigar.github.io/tinytots-tunes/) — Official streaming portal on GitHub Pages.
+
+---
+
 ## 🌟 Key Features
 
 ### 1. Content Planner
