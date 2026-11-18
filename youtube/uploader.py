@@ -1,6 +1,11 @@
 import os
-import json
+import sys
 from pathlib import Path
+
+# Ensure root workspace directory is in sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import json
 from typing import Dict, Any, Optional
 from core.config import config
 from core.logger import logger
@@ -210,5 +215,56 @@ class YouTubeUploader:
         logger.info("Project '%s' successfully published to YouTube! URL: %s", p_id, result["url"])
         return result
 
+    def upload_catalog_video(
+        self,
+        song_number: int,
+        privacy_status: str = "private",
+        publish_at: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Uploads a produced catalog pilot video from output/video_XX directly."""
+        vid = f"video_{song_number:02d}"
+        output_dir = config.BASE_DIR / "output" / vid
+        video_path = output_dir / "final_video.mp4"
+        thumb_path = output_dir / "thumbnail.png"
+        meta_path = output_dir / "metadata.json"
+
+        if not video_path.exists():
+            raise FileNotFoundError(f"Deliverable video not found at {video_path}! Produce the video first.")
+        if not meta_path.exists():
+            raise FileNotFoundError(f"Metadata not found at {meta_path}!")
+
+        with open(meta_path, "r", encoding="utf-8") as f:
+            metadata = json.load(f)
+
+        proj_dict = {
+            "project_id": f"proj_{vid}",
+            "title": metadata["title"],
+            "theme": metadata.get("category_id", "Film & Animation"),
+            "status": "APPROVED",
+            "metadata": metadata,
+            "paths": {
+                "root": str(output_dir),
+                "final_video": str(video_path),
+                "thumbnail_file": str(thumb_path) if thumb_path.exists() else None
+            }
+        }
+        return self.upload_project(
+            proj_dict,
+            privacy_status=privacy_status,
+            publish_at=publish_at,
+            bypass_approval_check=True
+        )
+
 youtube_uploader = YouTubeUploader()
+
+if __name__ == "__main__":
+    import sys
+    song_num = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    privacy = sys.argv[2] if len(sys.argv) > 2 else "private"
+    res = youtube_uploader.upload_catalog_video(song_num, privacy_status=privacy)
+    print(f"\n✔ Upload process completed for Video {song_num:02d}!")
+    print(f"  URL: {res.get('url')}")
+    print(f"  ID: {res.get('id')}")
+    print(f"  Privacy: {res.get('status', {}).get('privacyStatus')}")
+    print(f"  Mode: {'Mock (Test Mode)' if res.get('mock') else 'Live YouTube Data API v3'}")
 
